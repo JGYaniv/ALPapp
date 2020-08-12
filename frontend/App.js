@@ -1,50 +1,57 @@
-import { StatusBar } from 'expo-status-bar';
+// import 'react-native-gesture-handler';
+// import { StatusBar } from 'expo-status-bar';
+// import React from 'react';
 import React from 'react';
+import 'react-native-gesture-handler';
+import { NavigationContainer } from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
+import Splash from './src/Splash'
+import Index from './src/Index'
+
 import { Image, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
-import * as Sharing from 'expo-sharing'; 
+// import { NavigationContainer } from '@react-navigation/native';
+// import { createStackNavigator } from '@react-navigation/stack';
+
+const Stack = createStackNavigator();
+// import * as Sharing from 'expo-sharing'; 
 
 export default function App() {
-  const [selectedImage, setSelectedImage] = React.useState(null);
-  let openImagePickerAsync = async () => {
-    let permissionResult = await ImagePicker.requestCameraRollPermissionsAsync();
+  // const [selectedImage, setSelectedImage] = React.useState(null);
+  // let openImagePickerAsync = async () => {
+  //   let permissionResult = await ImagePicker.requestCameraRollPermissionsAsync();
 
-    if (permissionResult.granted === false) {
-      alert("Permission to access camera roll is required!");
-      return;
-    }
+  //   if (permissionResult.granted === false) {
+  //     alert("Permission to access camera roll is required!");
+  //     return;
+  //   }
 
-    let pickerResult = await ImagePicker.launchImageLibraryAsync();
-    if (pickerResult.cancelled === true) {
-      return;
-    }
+  //   let pickerResult = await ImagePicker.launchImageLibraryAsync();
+  //   if (pickerResult.cancelled === true) {
+  //     return;
+  //   }
 
-    setSelectedImage({ localUri: pickerResult.uri });
-  }
-
-  if (selectedImage !== null) {
-    return (
-      <View style={styles.container}>
-        <Image
-          source={{ uri: selectedImage.localUri }}
-          style={styles.thumbnail}
-        />
-      </View>
-    );
-  }
+  //   setSelectedImage({ localUri: pickerResult.uri });
+  // }
 
   return (
-    <View style={styles.container}>
-      <Image source={{ uri: "https://i.imgur.com/TkIrScD.png" }} style={styles.logo}  />
-       <Text style={styles.instructions} >
-         To share a photo from your phone with a friend, just press the button below!
-        </Text>
-        <TouchableOpacity
-        onPress={openImagePickerAsync}
-        style={styles.button}>
-        <Text style={styles.buttonText}>Pick a photo</Text>
-      </TouchableOpacity>
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Splash" component={Splash}></Stack.Screen>
+        <Stack.Screen name="Index" component={Index}></Stack.Screen>
+      </Stack.Navigator>
+      {/* <View style={styles.container}>
+        <Image source={{ uri: "https://i.imgur.com/TkIrScD.png" }} style={styles.logo}  />
+        <Text style={styles.instructions} >
+          To share a photo from your phone with a friend, just press the button below!
+          </Text>
+          <TouchableOpacity
+          onPress={openImagePickerAsync}
+          style={styles.button}>
+          <Text style={styles.buttonText}>Pick a photo</Text>
+        </TouchableOpacity>
+      </View> */}
+    </NavigationContainer>
   );
 }
 
