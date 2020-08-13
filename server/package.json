@@ -1,6 +1,7 @@
 {
   "scripts": {
-    "start": "nodemon ./src/index.js"
+    "server:start": "nodemon ./src/index.js",
+    "server:dev": "nodemon --inspect ./src/index.js"
   },
   "devDependencies": {
     "nodemon": "^2.0.4"

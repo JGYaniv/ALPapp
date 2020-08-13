@@ -1,11 +1,13 @@
 const { GraphQLObjectType } = require("graphql");
 
+const sample = require('../../modules/sample/query');
 
 const query = new GraphQLObjectType({
-    type: "query",
+    name: "query",
     description: "API Queries [Read]",
     fields: () => ({
         //include queries fields here...
+        ...sample
     })
 })
 
