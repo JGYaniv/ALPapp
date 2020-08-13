@@ -1,4 +1,4 @@
-const { GraphQLObjectType, defaultFieldResolver } = require("graphql");
+const { GraphQLObjectType } = require("graphql");
 
 
 const mutation = new GraphQLObjectType({
@@ -9,4 +9,4 @@ const mutation = new GraphQLObjectType({
     })
 })
 
-export default mutation;
+module.exports = mutation;

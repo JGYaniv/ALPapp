@@ -1,6 +1,9 @@
 {
   "scripts": {
-    "start": "node ."
+    "start": "nodemon ./src/index.js"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
   },
   "dependencies": {
     "graphql": "^15.3.0",
