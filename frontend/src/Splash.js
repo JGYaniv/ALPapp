@@ -10,6 +10,12 @@ export default function Splash({ navigation }){
                     navigation.navigate('Index')
                 }
              />
+            <Button
+                title="Go to Login"
+                onPress={() =>
+                    navigation.navigate('Login')
+                }
+             />
             <Text>HI splash</Text>
         </View>
     )
