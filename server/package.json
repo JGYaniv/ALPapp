@@ -1,0 +1,13 @@
+{
+  "scripts": {
+    "server:start": "nodemon ./src/index.js",
+    "server:dev": "nodemon --inspect ./src/index.js"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  },
+  "dependencies": {
+    "graphql": "^15.3.0",
+    "graphql-yoga": "^1.18.3"
+  }
+}
