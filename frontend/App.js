@@ -1,30 +1,26 @@
-// import 'react-native-gesture-handler';
-// import { StatusBar } from 'expo-status-bar';
-// import React from 'react';
 import React from 'react';
+import { Image, StyleSheet, Text, View, TouchableOpacity, FlatList, Button } from 'react-native';
+
 import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
-import { Provider as PaperProvider } from 'react-native-paper';
+import { createStackNavigator } from '@react-navigation/stack';
+import { Provider as PaperProvider, BottomNavigation, Text } from 'react-native-paper';
+
 import Splash from './src/Splash'
 import Index from './src/Index'
 import Checkout from './src/Chekout'
 import Show from './src/Show'
 import Scan from './src/Scan' 
 import Footer from './src/Footer' 
+import Login from './src/Login';
 import { navigationRef } from './RootNavigation';
-import { BottomNavigation, Text } from 'react-native-paper';
 
-
-import { Image, StyleSheet, View, TouchableOpacity, FlatList, Button } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
-// import { NavigationContainer } from '@react-navigation/native';
-// import { createStackNavigator } from '@react-navigation/stack';
-
+import { StatusBar } from 'expo-status-bar';
 
 
 const Stack = createStackNavigator();
-// import * as Sharing from 'expo-sharing'; 
+// import * as Sharing from 'expo-sharing';
 
 export default function App() {
 
@@ -54,6 +50,7 @@ export default function App() {
       <Stack.Navigator>
         <Stack.Screen name="Splash" component={Splash}></Stack.Screen>
         <Stack.Screen name="Index" component={Index}></Stack.Screen>
+        <Stack.Screen name="Login" component={Login}></Stack.Screen>
         <Stack.Screen name="Show" component={Show}></Stack.Screen>
         <Stack.Screen name="Checkout" component={Checkout}></Stack.Screen>
         <Stack.Screen name="Scan" component={Scan}></Stack.Screen>       
@@ -94,9 +91,9 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
   },
   logo: {
     width: 305,
@@ -104,10 +101,10 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   instructions: {
-    color: '#888',
+    color: "#888",
     fontSize: 18,
     marginHorizontal: 15,
-  }, 
+  },
   button: {
     backgroundColor: "blue",
     padding: 20,
@@ -115,12 +112,12 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     fontSize: 20,
-    color: '#fff',
-  }, 
+    color: "#fff",
+  },
   thumbnail: {
     width: 300,
     height: 300,
-    resizeMode: "contain"
+    resizeMode: "contain",
   },
   footerStyle: {
     position: 'absolute',
