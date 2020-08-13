@@ -1,5 +1,5 @@
-import React from 'react';
-import { Image, StyleSheet, Text, View, TouchableOpacity, FlatList, Button } from 'react-native';
+import React, {useState} from 'react';
+import { Image, StyleSheet,  View, TouchableOpacity, FlatList, Button } from 'react-native';
 
 import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
@@ -13,80 +13,63 @@ import Show from './src/Show'
 import Scan from './src/Scan' 
 import Footer from './src/Footer' 
 import Login from './src/Login';
+import { GlobalContext, defaultState } from './src/GlobalContext'
 import { navigationRef } from './RootNavigation';
+
 
 import * as ImagePicker from 'expo-image-picker';
 import { StatusBar } from 'expo-status-bar';
 
 
 const Stack = createStackNavigator();
-// import * as Sharing from 'expo-sharing';
 
-export default function App() {
+console.log('defaultState', defaultState)
 
+class App extends React.Component {
+  constructor(props) {
+    super(props);
 
-  // const [selectedImage, setSelectedImage] = React.useState(null);
-  // let openImagePickerAsync = async () => {
-  //   let permissionResult = await ImagePicker.requestCameraRollPermissionsAsync();
+    this.toggleLogin = () => {
+      this.setState(state => ({
+        isLoggedIn:
+          state.isLoggedIn === false
+            ? true
+            : false
+      }));
+    };
 
-  //   if (permissionResult.granted === false) {
-  //     alert("Permission to access camera roll is required!");
-  //     return;
-  //   }
+    this.state = {
+      isLoggedIn: false,
+      thing: "is working",
+      toggleLogin: this.toggleLogin
+    };
+  }
 
-  //   let pickerResult = await ImagePicker.launchImageLibraryAsync();
-  //   if (pickerResult.cancelled === true) {
-  //     return;
-  //   }
+  render() {
+    return (
 
-  //   setSelectedImage({ localUri: pickerResult.uri });
-  // }
+      <GlobalContext.Provider value={this.state}>
+        <PaperProvider>    
+          <NavigationContainer ref={navigationRef}>
 
-  return (
-    <PaperProvider>
-
-    
-    <NavigationContainer ref={navigationRef}>
-      <Stack.Navigator>
-        <Stack.Screen name="Splash" component={Splash}></Stack.Screen>
-        <Stack.Screen name="Index" component={Index}></Stack.Screen>
-        <Stack.Screen name="Login" component={Login}></Stack.Screen>
-        <Stack.Screen name="Show" component={Show}></Stack.Screen>
-        <Stack.Screen name="Checkout" component={Checkout}></Stack.Screen>
-        <Stack.Screen name="Scan" component={Scan}></Stack.Screen>       
-      </Stack.Navigator>
-      <Footer/>
-      {/* <View style={styles.footerStyle}>
-        <Button
-            title="Sc"
-            onPress={() =>
-                navigation.navigate('Scan')
-            }
-        />
-        <Button
-            title="Sc"
-            onPress={() =>
-                navigation.navigate('Scan')
-            }
-        />
-
-      </View> */}
-      
-      {/* <View style={styles.container}>
-        <Image source={{ uri: "https://i.imgur.com/TkIrScD.png" }} style={styles.logo}  />
-        <Text style={styles.instructions} >
-          To share a photo from your phone with a friend, just press the button below!
-          </Text>
-          <TouchableOpacity
-          onPress={openImagePickerAsync}
-          style={styles.button}>
-          <Text style={styles.buttonText}>Pick a photo</Text>
-        </TouchableOpacity>
-      </View> */}
-    </NavigationContainer>
-    </PaperProvider>
-  );
+            <Stack.Navigator>
+              <Stack.Screen name="Splash" component={Splash}></Stack.Screen>
+              <Stack.Screen name="Index" component={Index}></Stack.Screen>
+              <Stack.Screen name="Login" component={Login}></Stack.Screen>
+              <Stack.Screen name="Show" component={Show}></Stack.Screen>
+              <Stack.Screen name="Checkout" component={Checkout}></Stack.Screen>
+              <Stack.Screen name="Scan" component={Scan}></Stack.Screen>       
+            </Stack.Navigator>
+            <Footer/>
+            
+          </NavigationContainer>
+        </PaperProvider>
+    </GlobalContext.Provider> 
+    );
+  }
 }
+
+export default App
 
 const styles = StyleSheet.create({
   container: {
