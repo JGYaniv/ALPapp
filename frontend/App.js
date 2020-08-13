@@ -1,23 +1,30 @@
-// import 'react-native-gesture-handler';
-// import { StatusBar } from 'expo-status-bar';
-// import React from 'react';
-import React from "react";
-import "react-native-gesture-handler";
-import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
-import Splash from "./src/Splash";
-import Index from "./src/Index";
-import Login from "./src/Login";
+import React from 'react';
+import { Image, StyleSheet, Text, View, TouchableOpacity, FlatList, Button } from 'react-native';
 
-import { Image, StyleSheet, Text, View, TouchableOpacity } from "react-native";
-import * as ImagePicker from "expo-image-picker";
-// import { NavigationContainer } from '@react-navigation/native';
-// import { createStackNavigator } from '@react-navigation/stack';
+import 'react-native-gesture-handler';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { Provider as PaperProvider, BottomNavigation, Text } from 'react-native-paper';
+
+import Splash from './src/Splash'
+import Index from './src/Index'
+import Checkout from './src/Chekout'
+import Show from './src/Show'
+import Scan from './src/Scan' 
+import Footer from './src/Footer' 
+import Login from './src/Login';
+import { navigationRef } from './RootNavigation';
+
+import * as ImagePicker from 'expo-image-picker';
+import { StatusBar } from 'expo-status-bar';
+
 
 const Stack = createStackNavigator();
 // import * as Sharing from 'expo-sharing';
 
 export default function App() {
+
+
   // const [selectedImage, setSelectedImage] = React.useState(null);
   // let openImagePickerAsync = async () => {
   //   let permissionResult = await ImagePicker.requestCameraRollPermissionsAsync();
@@ -36,12 +43,35 @@ export default function App() {
   // }
 
   return (
-    <NavigationContainer>
+    <PaperProvider>
+
+    
+    <NavigationContainer ref={navigationRef}>
       <Stack.Navigator>
         <Stack.Screen name="Splash" component={Splash}></Stack.Screen>
         <Stack.Screen name="Index" component={Index}></Stack.Screen>
         <Stack.Screen name="Login" component={Login}></Stack.Screen>
+        <Stack.Screen name="Show" component={Show}></Stack.Screen>
+        <Stack.Screen name="Checkout" component={Checkout}></Stack.Screen>
+        <Stack.Screen name="Scan" component={Scan}></Stack.Screen>       
       </Stack.Navigator>
+      <Footer/>
+      {/* <View style={styles.footerStyle}>
+        <Button
+            title="Sc"
+            onPress={() =>
+                navigation.navigate('Scan')
+            }
+        />
+        <Button
+            title="Sc"
+            onPress={() =>
+                navigation.navigate('Scan')
+            }
+        />
+
+      </View> */}
+      
       {/* <View style={styles.container}>
         <Image source={{ uri: "https://i.imgur.com/TkIrScD.png" }} style={styles.logo}  />
         <Text style={styles.instructions} >
@@ -54,6 +84,7 @@ export default function App() {
         </TouchableOpacity>
       </View> */}
     </NavigationContainer>
+    </PaperProvider>
   );
 }
 
@@ -87,5 +118,20 @@ const styles = StyleSheet.create({
     width: 300,
     height: 300,
     resizeMode: "contain",
+  },
+  footerStyle: {
+    position: 'absolute',
+    flex:0.1,
+    left: 0,
+    right: 0,
+    bottom: -10,
+    backgroundColor:'#ffe87a',
+    flexDirection:'row',
+    height: 90,
+    alignItems:'center',
+    justifyContent: 'center',
+  },
+  titleStyle: {
+    color: 'white'
   },
 });
