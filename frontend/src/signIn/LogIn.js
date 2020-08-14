@@ -1,11 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { TextInput, Button } from "react-native-paper";
-import { StyleSheet, StatusBar, View } from "react-native";
+import { View } from "react-native";
+import { GlobalContext } from '../GlobalContext'
 
 import InitialPicture from './initialPicture'
 import { styles } from '../../config/stylesheets/SingInStyle'
-
-import colors from "../../config/colors";
 
 export default function LogIn({ navigation }) {
   const [email, setEmail] = useState("");

@@ -15,11 +15,15 @@ export default ({ navigation }) => {
 
   if (cont.isLoggedIn === false) {
 
-    return(
+    return (
       <View>
-          <Button
+        <Button
           title="Go to Login"
-          onPress={() => navigation.navigate("Login")}
+          onPress={() => navigation.navigate("LogIn")}
+        />
+        <Button
+          title="Go to ShowPage"
+          onPress={() => navigation.navigate("Show")}
         />
 
         <Button
@@ -31,7 +35,7 @@ export default ({ navigation }) => {
     )
   } else {
 
-    return ( 
+    return (
       <View>
         <Button
           title="Go to Splash"
@@ -39,7 +43,7 @@ export default ({ navigation }) => {
         />
         <Button
           title="Go to Login"
-          onPress={() => navigation.navigate("Login")}
+          onPress={() => navigation.navigate("LogIn")}
         />
         <Text>HI index</Text>
         <Button

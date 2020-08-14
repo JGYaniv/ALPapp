@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   Image,
   StyleSheet,
@@ -12,6 +12,8 @@ import {
   Dimensions,
 } from "react-native";
 import { TextInput, Button } from "react-native-paper";
+import { GlobalContext } from '../GlobalContext'
+
 import InitialPicture from './initialPicture'
 import { styles } from '../../config/stylesheets/SingInStyle'
 
