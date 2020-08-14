@@ -12,7 +12,7 @@ import Checkout from './src/Chekout'
 import Show from './src/Show'
 import Scan from './src/Scan' 
 import Footer from './src/Footer' 
-import Login from './src/Login';
+import LogIn from './src/signIn/LogIn';
 import { GlobalContext, defaultState } from './src/GlobalContext'
 import { navigationRef } from './RootNavigation';
 
@@ -38,10 +38,18 @@ class App extends React.Component {
       }));
     };
 
+    this.showBook = (book) => {
+      this.setState({
+        bookToShow: book
+      });
+    };
+
     this.state = {
       isLoggedIn: false,
       thing: "is working",
-      toggleLogin: this.toggleLogin
+      toggleLogin: this.toggleLogin,
+      bookToShow: {},
+      showBook: this.showBook  
     };
   }
 
@@ -55,7 +63,7 @@ class App extends React.Component {
             <Stack.Navigator>
               <Stack.Screen name="Splash" component={Splash}></Stack.Screen>
               <Stack.Screen name="Index" component={Index}></Stack.Screen>
-              <Stack.Screen name="Login" component={Login}></Stack.Screen>
+              <Stack.Screen name="LogIn" component={LogIn}></Stack.Screen>
               <Stack.Screen name="Show" component={Show}></Stack.Screen>
               <Stack.Screen name="Checkout" component={Checkout}></Stack.Screen>
               <Stack.Screen name="Scan" component={Scan}></Stack.Screen>       
