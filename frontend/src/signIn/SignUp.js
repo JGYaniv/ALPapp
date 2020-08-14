@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   Image,
   StyleSheet,
@@ -12,8 +12,11 @@ import {
   Dimensions,
 } from "react-native";
 import { TextInput, Button } from "react-native-paper";
+import { GlobalContext } from '../GlobalContext'
+
 import InitialPicture from './initialPicture'
 import { styles } from '../../config/stylesheets/SingInStyle'
+
 
 
 
@@ -24,6 +27,7 @@ export default function SignUp({ navigation }) {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [library, setLibrary] = useState("");
+  const cont = useContext(GlobalContext)
 
   return (
     <View style={[styles.container]}>
@@ -63,7 +67,7 @@ export default function SignUp({ navigation }) {
       <View style={styles.lowerButtons}>
         <Button
           mode='contained'
-          onPress={() => console.log("Sign up")}
+          onPress={cont.toggleLogin}
           style={styles.buttons}
         >
           Sign up

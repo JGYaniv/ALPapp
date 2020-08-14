@@ -1,15 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { TextInput, Button } from "react-native-paper";
-import { StyleSheet, StatusBar, View } from "react-native";
+import { View } from "react-native";
+import { GlobalContext } from '../GlobalContext'
 
 import InitialPicture from './initialPicture'
 import { styles } from '../../config/stylesheets/SingInStyle'
 
-import colors from "../../config/colors";
-
 export default function LogIn({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const cont = useContext(GlobalContext)
+
 
 
   return (
@@ -35,7 +36,7 @@ export default function LogIn({ navigation }) {
         <Button
           mode='contained'
           // onPress={() => navigation.navigate("LogIn")}
-          onPress={() => console.log("LogIn")}
+          onPress={cont.toggleLogin}
           style={styles.buttons}
         >
           Login
