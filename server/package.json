@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "server:start": "nodemon ./src/index.js",
+    "server": "nodemon ./src/index.js",
     "server:dev": "nodemon --inspect ./src/index.js"
   },
   "devDependencies": {
@@ -8,6 +8,9 @@
   },
   "dependencies": {
     "graphql": "^15.3.0",
-    "graphql-yoga": "^1.18.3"
+    "graphql-yoga": "^1.18.3",
+    "pg": "^8.3.0",
+    "pg-hstore": "^2.3.3",
+    "sequelize": "^6.3.4"
   }
 }
