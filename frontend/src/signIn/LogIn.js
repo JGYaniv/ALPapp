@@ -10,6 +10,8 @@ import colors from "../../config/colors";
 export default function LogIn({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const cont = useContext(GlobalContext)
+
 
 
   return (
@@ -35,7 +37,7 @@ export default function LogIn({ navigation }) {
         <Button
           mode='contained'
           // onPress={() => navigation.navigate("LogIn")}
-          onPress={() => console.log("LogIn")}
+          onPress={cont.toggleLogin}
           style={styles.buttons}
         >
           Login

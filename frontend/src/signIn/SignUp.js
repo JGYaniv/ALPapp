@@ -17,6 +17,7 @@ import { styles } from '../../config/stylesheets/SingInStyle'
 
 
 
+
 // const handlePress = () => {};
 
 export default function SignUp({ navigation }) {
@@ -24,6 +25,7 @@ export default function SignUp({ navigation }) {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [library, setLibrary] = useState("");
+  const cont = useContext(GlobalContext)
 
   return (
     <View style={[styles.container]}>
@@ -63,7 +65,7 @@ export default function SignUp({ navigation }) {
       <View style={styles.lowerButtons}>
         <Button
           mode='contained'
-          onPress={() => console.log("Sign up")}
+          onPress={cont.toggleLogin}
           style={styles.buttons}
         >
           Sign up
