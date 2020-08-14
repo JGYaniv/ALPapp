@@ -39,10 +39,18 @@ class App extends React.Component {
       }));
     };
 
+    this.showBook = (book) => {
+      this.setState({
+        bookToShow: book
+      });
+    };
+
     this.state = {
       isLoggedIn: false,
       thing: "is working",
-      toggleLogin: this.toggleLogin
+      toggleLogin: this.toggleLogin,
+      bookToShow: {},
+      showBook: this.showBook
     };
   }
 
