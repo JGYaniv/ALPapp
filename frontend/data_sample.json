@@ -1,0 +1,89 @@
+{
+    "res": {
+        "books": [
+            {
+                "id": 1,
+                "title": "Harry Potter",
+                "author": "J. K. Rowling",
+                "genre": "fiction",
+                "isbn": "123456abcde"
+            },
+            {
+                "id": 2,
+                "title": "Chronicles of Narnia",
+                "author": "C. S. Lewis",
+                "genre": "fiction",
+                "isbn": "78901fghij"
+            },
+            {
+                "id": 3,
+                "title": "Lord of the Rings",
+                "author": "J. R. R. Tolkein",
+                "genre": "fiction",
+                "isbn": "23456klmno"
+            }
+        ],
+        "copies": [
+            {
+                "id": 1,
+                "library_id": 1,
+                "book_id": 1,
+                "book_number": 1
+            },
+            {
+                "id": 2,
+                "library_id": 1,
+                "book_id": 2,
+                "book_number": 1
+            },
+            {
+                "id": 3,
+                "library_id": 1,
+                "book_id": 2,
+                "book_number": 2
+            }
+        ],
+        "checkouts": [
+            {
+                "id": 1,
+                "copy_id": 1,
+                "user_id": 1,
+                "checkout_time": "january-01-2020-00:05:00+04:00",
+                "return_time": "january-02-2020-00:05:00+04:00"
+            },
+            {
+                "id": 2,
+                "copy_id": 1,
+                "user_id": 2,
+                "checkout_time": "january-03-2020-00:05:00+04:00",
+                "return_time": "january-04-2020-00:05:00+04:00"
+            },
+            {
+                "id": 3,
+                "copy_id": 1,
+                "user_id": 2,
+                "checkout_time": "january-05-2020-00:05:00+04:00",
+                "return_time": "january-06-2020-00:05:00+04:00"
+            }
+        ],
+        "libraries": [
+            {
+                "id": 1,
+                "name": "The New York Public Library",
+                "address": "100 Broadway, New York, NY"
+            }
+        ],
+        "users": [
+            {
+                "id": 1,
+                "first_name": "Bobby",
+                "last_name": "Tables"
+            },
+            {
+                "id": 2,
+                "first_name": "Beto",
+                "last_name": "Tabla"
+            }
+        ]
+    }
+}
