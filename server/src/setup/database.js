@@ -1,6 +1,6 @@
 import { Sequelize} from 'sequelize';
 
-import databaseConfig from '../config/database.json';
+import databaseConfig from '../config/config.json';
 
 const databaseConfigEnv = databaseConfig[process.env.NODE_ENV];
 
