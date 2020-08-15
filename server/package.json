@@ -1,7 +1,7 @@
 {
   "scripts": {
-    "server": "nodemon ./src/index.js",
-    "server:dev": "nodemon --inspect ./src/index.js"
+    "server": "nodemon ./src/index.js --exec babel-node",
+    "server:dev": "nodemon --inspect ./src/index.js --exec babel-node"
   },
   "devDependencies": {
     "@babel/cli": "7.8.4",

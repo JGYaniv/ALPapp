@@ -1,9 +1,9 @@
-const { GraphQLObjectType, GraphQLString } = require("graphql");
+import { GraphQLString } from "graphql";
 
-const SampleType = require("./type");
-const { samplePrint } = require("./resolvers");
+import SampleType from "./type";
+import { samplePrint } from "./resolvers";
 
-const sampleQuery = {
+export const sampleQuery = {
     type: SampleType,
     args: {
         name: {
@@ -15,4 +15,3 @@ const sampleQuery = {
     resolve: samplePrint
 };
 
-module.exports = { sampleQuery };

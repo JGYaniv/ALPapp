@@ -1,6 +1,6 @@
 const { GraphQLObjectType } = require("graphql");
 
-const sample = require('../../modules/sample/mutation');
+import sample from '../../modules/sample/mutation';
 
 const mutation = new GraphQLObjectType({
     name: "mutation",
@@ -11,4 +11,4 @@ const mutation = new GraphQLObjectType({
     })
 })
 
-module.exports = mutation;
+export default mutation;

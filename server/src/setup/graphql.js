@@ -1,7 +1,7 @@
-const { GraphQLServer } = require("graphql-yoga");
+import { GraphQLServer } from "graphql-yoga";
 
-const schema  = require('./schema')
+import schema  from './schema';
 
 const server = new GraphQLServer({ schema });
 
-module.exports = server;
+export default server;
