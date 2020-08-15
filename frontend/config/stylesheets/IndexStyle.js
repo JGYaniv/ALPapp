@@ -9,10 +9,10 @@ export const styles = StyleSheet.create({
     // flex: 1,
     borderRadius: 4,
     backgroundColor: colors.lightgray,
-    shadowColor: "#000",
+    shadowColor: colors.shadow,
     shadowOffset: {
-        width: 0,
-        height: 2,
+      width: 0,
+      height: 2,
     },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
@@ -36,7 +36,7 @@ export const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     borderBottomColor: colors.gray,
-    borderBottomWidth:  1
+    borderBottomWidth: 1
     // justifyContent: "space-between"
   },
   author: {
