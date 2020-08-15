@@ -39,6 +39,18 @@ class App extends React.Component {
       }));
     };
 
+    this.loginUser = (user) => {
+      this.setState(user => ({
+        currentUser: user
+      }));
+    };
+
+    this.logOut = () => {
+      this.setState(user => ({
+        currentUser: null
+      }));
+    };
+
     this.showBook = (book) => {
       this.setState({
         bookToShow: book
@@ -50,7 +62,10 @@ class App extends React.Component {
       thing: "is working",
       toggleLogin: this.toggleLogin,
       bookToShow: {},
-      showBook: this.showBook
+      showBook: this.showBook,
+      currentUser: null,
+      loginUser: this.loginUser,
+      logOut: this.logOut
     };
   }
 

@@ -4,6 +4,9 @@ export const defaultState = {
     thing: "is working",
     toggleLogin: () => {},
     bookToShow: {},
-    showBook: () => {}
+    showBook: () => {},
+    currentUser: null,
+    loginUser: () => {},
+    logOut: () => {}
 }
 export const GlobalContext = React.createContext(defaultState);

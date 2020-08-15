@@ -3,8 +3,8 @@ import { Text, View, SafeAreaView, ScrollView } from 'react-native';
 import { Button, List } from "react-native-paper";
 import { styles } from '../config/stylesheets/ShowStyle'
 import { GlobalContext } from './GlobalContext'
-const cont = useContext(GlobalContext)
-console.log('cont', cont)
+// const cont = useContext(GlobalContext)
+// console.log('cont', cont)
 
 export default function Show({ navigation }) {
 
@@ -20,7 +20,7 @@ export default function Show({ navigation }) {
           mode='contained'
           onPress={() => navigation.navigate("Checkout")}
           style={styles.buttons}
-          disabled={book.totalItems - book.CheckedOut === 0}
+          // disabled={book.totalItems - book.CheckedOut === 0}
         >
           Checkout
       </Button>
