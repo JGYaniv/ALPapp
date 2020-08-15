@@ -9,6 +9,27 @@ export const styles = StyleSheet.create({
   },
   buttons: {
     backgroundColor: colors.secondary,
-    marginHorizontal: '5%'
+    marginHorizontal: '5%',
+    marginBottom: '2%',
+    marginTop: '2%'
+  },
+  list: {
+    marginHorizontal: '5%',
+    backgroundColor: colors.lightgray,
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    paddingHorizontal: '2%',
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+  listItem: {
+    borderColor: colors.gray,
+    borderBottomColor: colors.gray,
+    borderBottomWidth: 1,
+    height: 45,
+    textAlignVertical: 'center',
   }
 })

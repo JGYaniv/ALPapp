@@ -22,7 +22,7 @@ export const styles = StyleSheet.create({
   buttons: {
     // flex: 1,
     backgroundColor: colors.primary,
-    marginBottom: '5%'
+    marginBottom: '2%'
   },
   buttonText: {
     fontSize: 20,
