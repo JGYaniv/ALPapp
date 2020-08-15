@@ -1,33 +1,29 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('Users', {
+    return queryInterface.createTable('Books', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      email: {
-        type: Sequelize.STRING,
-        unique: true,
-        allowNull: false
-      },
-      firstname: {
+      title: {
         type: Sequelize.STRING,
         allowNull: false
       },
-      lastname: {
+      author: {
         type: Sequelize.STRING,
         allowNull: false
       },
-      type: {
+      genre: {
         type: Sequelize.STRING,
         allowNull: false
       },
-      password: {
+      isbn: {
         type: Sequelize.STRING,
-        allowNull: true
+        allowNull: false,
+        unique: true
       },
       createdAt: {
         allowNull: false,
@@ -37,14 +33,9 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE
       }
-    })
-    // TODO: Tried adding index at email, but no success
-  //   .then(() => queryInterface.addIndex('Users', 'email', {
-  //     indicesType: 'UNIQUE',
-  //     indexName: 'idx_item_fulltext'
-  // }));
+    });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Users');
+    return queryInterface.dropTable('Books');
   }
 };
