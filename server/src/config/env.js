@@ -9,4 +9,6 @@ const NODE_ENV = process.env.NODE_ENV;
 // Port
 const PORT =  process.env.PORT || 4000;
 
-module.exports = {NODE_ENV, PORT}
+const DB_DEV_PASSWORD = process.env.DB_DEV_PASSWORD;
+
+module.exports = {NODE_ENV, PORT, DB_DEV_PASSWORD}
