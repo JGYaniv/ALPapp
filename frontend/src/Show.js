@@ -3,8 +3,6 @@ import { Text, View, SafeAreaView, ScrollView } from 'react-native';
 import { Button, List } from "react-native-paper";
 import { styles } from '../config/stylesheets/ShowStyle'
 import { GlobalContext } from './GlobalContext'
-const dummyData = require('../data_sample.json')
-
 
 export default function Show({ navigation }) {
   const cont = useContext(GlobalContext)
@@ -21,16 +19,6 @@ export default function Show({ navigation }) {
     return `${user.first_name} ${user.last_name}`
   }
   return (
-
-
-    <ScrollView style={[styles.scrollView]}>
-      <Button
-        mode='contained'
-        onPress={() => navigation.navigate("Checkout")}
-        style={styles.buttons}
-      // disabled={book.totalItems - book.CheckedOut === 0}
-      >
-        Checkout
       </Button>
       <View style={styles.list}>
         <Text style={styles.listItem}>ISBN : {cont.bookToShow.isbn}</Text >
