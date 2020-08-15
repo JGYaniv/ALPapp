@@ -33,11 +33,6 @@ export default ({ navigation }) => {
           onPress={() => navigation.navigate("LogIn")}
         />
         <Button
-          title="Go to ShowPage"
-          onPress={() => navigation.navigate("Show")}
-        />
-
-        <Button
           title="change global state"
 
           onPress={cont.toggleLogin}

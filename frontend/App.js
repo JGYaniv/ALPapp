@@ -14,6 +14,7 @@ import Scan from './src/Scan'
 import Footer from './src/Footer'
 import LogIn from './src/signIn/LogIn';
 import SignUp from './src/signIn/SignUp';
+import Dummy from './src/Dummy'
 import { GlobalContext, defaultState } from './src/GlobalContext'
 import { navigationRef } from './RootNavigation';
 
@@ -85,6 +86,7 @@ class App extends React.Component {
               <Stack.Screen name="Checkout" component={Checkout}></Stack.Screen>
               <Stack.Screen name="Scan" component={Scan}></Stack.Screen>
             </Stack.Navigator>
+            <Dummy />
             <Footer />
 
           </NavigationContainer>

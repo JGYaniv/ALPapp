@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { TextInput, Button } from "react-native-paper";
 import { View } from "react-native";
-import { GlobalContext } from '../GlobalContext'
+import { GlobalContext } from './../GlobalContext'
 
 import InitialPicture from './initialPicture'
 import { styles } from '../../config/stylesheets/SingInStyle'
