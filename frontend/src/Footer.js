@@ -1,39 +1,18 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Image, StyleSheet, View, TouchableOpacity } from 'react-native';
 import { BottomNavigation, Text, Button } from 'react-native-paper';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import * as RootNavigation from '../RootNavigation';
-  // const IndexRoute = () => <Text></Text>;
-  // const indexIcon = <FontAwesome5 name={'book-opencommopen-bookents'} solid />;
-  // const ScanRoute = () => <Text></Text>;
-  // const scanIcon = <FontAwesome5 name={'barcode'} solid />;
-  // const SyncRoute = () => <Text></Text>;
-  // const syncIcon = <FontAwesome5 name={'sync'} solid />;
+import { GlobalContext } from './GlobalContext'
 
-export default function Footer(){
+export default () => {
 
-  // const [index, setIndex] = React.useState(0);
-  // const [routes] = React.useState([
-  //   { key: 'scan', title: 'Scan', icon: `${scanIcon}` },    
-  //   { key: 'index', title: 'Index', icon: `${indexIcon}` },
-  //   { key: 'sync', title: 'Sync', icon: `${syncIcon}` },
-  // ]);
-
-  // const renderScene = BottomNavigation.SceneMap({
-  //   index: IndexRoute,
-  //   scan: ScanRoute,
-  //   sync: SyncRoute,
-  // });
-
-  // return (
-  //   <BottomNavigation
-  //     navigationState={{ index, routes }}
-  //     onIndexChange={setIndex}
-  //     renderScene={renderScene}
-  //   />
-  // );
-
-
+  const cont = useContext(GlobalContext)
+  if (cont.isLoggedIn === false) {
+    return (
+      <View></View>
+    )
+  } else {
     return(
       <View style={styles.footerStyle}>
         <Button
@@ -61,6 +40,7 @@ export default function Footer(){
 
       </View> 
     )
+  }
 }
 
 const styles = StyleSheet.create({

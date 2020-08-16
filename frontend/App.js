@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import { Image, StyleSheet,  View, TouchableOpacity, FlatList, Button } from 'react-native';
+import React, { useState } from 'react';
+import { Image, StyleSheet, View, TouchableOpacity, FlatList, Button } from 'react-native';
 
 import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
@@ -10,9 +10,11 @@ import Splash from './src/Splash'
 import Index from './src/Index'
 import Checkout from './src/Chekout'
 import Show from './src/Show'
-import Scan from './src/Scan' 
-import Footer from './src/Footer' 
-import Login from './src/Login';
+import Scan from './src/Scan'
+import Footer from './src/Footer'
+import LogIn from './src/signIn/LogIn';
+import SignUp from './src/signIn/SignUp';
+import Dummy from './src/Dummy'
 import { GlobalContext, defaultState } from './src/GlobalContext'
 import { navigationRef } from './RootNavigation';
 
@@ -38,10 +40,33 @@ class App extends React.Component {
       }));
     };
 
+    this.loginUser = (user) => {
+      this.setState(user => ({
+        currentUser: user
+      }));
+    };
+
+    this.logOut = () => {
+      this.setState(user => ({
+        currentUser: null
+      }));
+    };
+
+    this.showBook = (book) => {
+      this.setState({
+        bookToShow: book
+      });
+    };
+
     this.state = {
       isLoggedIn: false,
       thing: "is working",
-      toggleLogin: this.toggleLogin
+      toggleLogin: this.toggleLogin,
+      bookToShow: {},
+      showBook: this.showBook,
+      currentUser: null,
+      loginUser: this.loginUser,
+      logOut: this.logOut
     };
   }
 
@@ -49,22 +74,24 @@ class App extends React.Component {
     return (
 
       <GlobalContext.Provider value={this.state}>
-        <PaperProvider>    
+        <PaperProvider>
           <NavigationContainer ref={navigationRef}>
 
             <Stack.Navigator>
               <Stack.Screen name="Splash" component={Splash}></Stack.Screen>
               <Stack.Screen name="Index" component={Index}></Stack.Screen>
-              <Stack.Screen name="Login" component={Login}></Stack.Screen>
+              <Stack.Screen name="LogIn" component={LogIn}></Stack.Screen>
+              <Stack.Screen name="SignUp" component={SignUp}></Stack.Screen>
               <Stack.Screen name="Show" component={Show}></Stack.Screen>
               <Stack.Screen name="Checkout" component={Checkout}></Stack.Screen>
-              <Stack.Screen name="Scan" component={Scan}></Stack.Screen>       
+              <Stack.Screen name="Scan" component={Scan}></Stack.Screen>
             </Stack.Navigator>
-            <Footer/>
-            
+            <Dummy />
+            <Footer />
+
           </NavigationContainer>
         </PaperProvider>
-    </GlobalContext.Provider> 
+      </GlobalContext.Provider>
     );
   }
 }
@@ -104,14 +131,14 @@ const styles = StyleSheet.create({
   },
   footerStyle: {
     position: 'absolute',
-    flex:0.1,
+    flex: 0.1,
     left: 0,
     right: 0,
     bottom: -10,
-    backgroundColor:'#ffe87a',
-    flexDirection:'row',
+    backgroundColor: '#ffe87a',
+    flexDirection: 'row',
     height: 90,
-    alignItems:'center',
+    alignItems: 'center',
     justifyContent: 'center',
   },
   titleStyle: {
