@@ -34,7 +34,7 @@ Tt will install all the front end dependencies. Then run:
 ```
 npm start
 ```
-This will run setup for both android and ios versions of the application. You can also run 'npm run android/ios' to run setup only for android or ios. 
+This will run setup for both android and ios versions of the application. You can also run `npm run android/ios` to run setup only for android or ios. 
 
 ### Backend
 From project root directory run `cd server` and then run: 
