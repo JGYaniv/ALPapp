@@ -1,6 +1,9 @@
-const server = require("./graphql");
+import server from "./graphql";
+import {NODE_ENV, PORT} from '../config/env';
 
-module.exports = (params) => {
-    const options = {port: 4000};
-    server.start(options, ()=>console.log('Server is running on localhost:' + options.port));  
+const startServer = (params) => {
+    const options = {port: PORT};
+    server.start(options, ()=>console.info(`INFO - Server started on http://localhost:${ PORT } [${ NODE_ENV }]`));  
 }
+
+export default startServer;

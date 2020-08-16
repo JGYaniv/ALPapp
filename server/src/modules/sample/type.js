@@ -1,4 +1,4 @@
-const { GraphQLObjectType, GraphQLString } = require("graphql");
+import { GraphQLObjectType, GraphQLString } from "graphql";
 
 const SampleType = new GraphQLObjectType({
     name: 'sample',
@@ -11,4 +11,4 @@ const SampleType = new GraphQLObjectType({
     })
 })
 
-module.exports = SampleType;
+export default SampleType;

@@ -1,3 +1,3 @@
-const startServer = require('./setup/server-start');
+import startServer from './setup/server-start';
 
 startServer();
