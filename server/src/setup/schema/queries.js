@@ -1,6 +1,6 @@
-const { GraphQLObjectType } = require("graphql");
+import { GraphQLObjectType } from "graphql";
 
-const sample = require('../../modules/sample/query');
+import sample from '../../modules/sample/query';
 
 const query = new GraphQLObjectType({
     name: "query",
@@ -11,4 +11,4 @@ const query = new GraphQLObjectType({
     })
 })
 
-module.exports = query;
+export default query;
