@@ -13,9 +13,9 @@ export default function Show({ navigation }) {
   const [expanded, setExpanded] = React.useState(true);
   const handlePress = () => setExpanded(!expanded);
   const copy = dummyData.res.copies.filter(copy => cont.bookToShow.id === copy.book_id)
-  console.log('copy', copy)
+  // console.log('copy', copy)
   const checkOutHistory = dummyData.res.checkouts.filter(checkout => copy[0].id === checkout.copy_id)
-  console.log('checkout', checkOutHistory)
+  // console.log('checkout', checkOutHistory)
   const hanldeUser = (userId) => {
     const user = dummyData.res.users.filter(user => userId === user.id)[0]
     return `${user.first_name} ${user.last_name}`

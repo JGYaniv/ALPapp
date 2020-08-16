@@ -1,22 +1,27 @@
 import React from 'react';
-import { Image, StyleSheet, Text, View, TouchableOpacity, Button } from 'react-native';
+import { Image, Text, View } from 'react-native';
+import { Button } from 'react-native-paper'
+import { styles } from '../config/stylesheets/SplashStyle';
+
 
 export default function Splash({ navigation }) {
   return (
-    <View>
-      <Button
-        title="Go to Index"
-        onPress={() =>
-          navigation.navigate('Index')
-        }
+    <View style={styles.container}>
+      <Image
+        resizeMode="contain"
+        style={styles.image}
+        source={require("../assets/aln1.png")}
       />
       <Button
-        title="Go to Login"
+        style={styles.button}
+        mode='contained'
         onPress={() =>
           navigation.navigate('LogIn')
         }
-      />
-      <Text>HI splash</Text>
+      >
+        LogIn
+      </Button>
     </View>
   )
 }
+

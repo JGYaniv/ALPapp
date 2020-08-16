@@ -11,6 +11,11 @@ export default function LogIn({ navigation }) {
   const [password, setPassword] = useState("");
   const cont = useContext(GlobalContext)
 
+  const handleLogin = () => {
+    cont.toggleLogin()
+    navigation.navigate("Index")
+  }
+
 
 
   return (
@@ -29,6 +34,7 @@ export default function LogIn({ navigation }) {
           label="Password"
           value={password}
           style={styles.input}
+          secureTextEntry={true}
           onChangeText={(password) => setPassword(password)}
         />
       </View>
@@ -36,7 +42,7 @@ export default function LogIn({ navigation }) {
         <Button
           mode='contained'
           // onPress={() => navigation.navigate("LogIn")}
-          onPress={cont.toggleLogin}
+          onPress={handleLogin}
           style={styles.buttons}
         >
           Login

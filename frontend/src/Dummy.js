@@ -10,9 +10,9 @@ export default function Dummy() {
 
 
 
-export const styles = StyleSheet.create({
+const styles = StyleSheet.create({
   Dummy: {
-    flex: 0.11,
-    // marginBottom: 90
+    // flex: 0.11,
+    marginBottom: 60
   }
 })
