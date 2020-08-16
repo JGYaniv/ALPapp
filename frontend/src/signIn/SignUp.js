@@ -10,6 +10,7 @@ import {
   StatusBar,
   SafeAreaView,
   Dimensions,
+  ScrollView
 } from "react-native";
 import { TextInput, Button } from "react-native-paper";
 import { GlobalContext } from '../GlobalContext'
@@ -30,6 +31,8 @@ export default function SignUp({ navigation }) {
   const cont = useContext(GlobalContext)
 
   return (
+
+    // <ScrollView style={[styles.scrollView]}>
     <View style={[styles.container]}>
       <InitialPicture />
       <View style={styles.inputsContainer}>
@@ -44,6 +47,7 @@ export default function SignUp({ navigation }) {
           mode="outlined"
           label="Password"
           value={password}
+          textContentType='password'
           style={styles.input}
           onChangeText={(password) => setPassword(password)}
         />
@@ -52,6 +56,7 @@ export default function SignUp({ navigation }) {
           label="Confirm Password"
           value={confirmPassword}
           style={styles.input}
+          textContentType='password'
           onChangeText={(confirmPassword) =>
             setConfirmPassword(confirmPassword)
           }
@@ -75,13 +80,14 @@ export default function SignUp({ navigation }) {
         <Button
           mode='contained'
           onPress={() => navigation.navigate("LogIn")}
-          // onPress={() => console.log("LogIn")}
           style={styles.buttons}
         >
           Login
         </Button>
       </View>
     </View>
+    // </ScrollView>
+
   );
 }
 

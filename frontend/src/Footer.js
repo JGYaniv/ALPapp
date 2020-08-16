@@ -13,56 +13,55 @@ export default () => {
       <View></View>
     )
   } else {
-    return(
+    return (
       <View style={styles.footerStyle}>
         <Button
-            style={styles.buttons}
-            onPress={() =>
-              RootNavigation.navigate('Scan')
-            }
+          style={styles.buttons}
+          onPress={() =>
+            RootNavigation.navigate('Scan')
+          }
         >
-          <FontAwesome5 name={'barcode'} solid style={styles.icons}/>
+          <FontAwesome5 name={'barcode'} solid style={styles.icons} />
         </Button>
 
         <Button style={styles.buttons} onPress={() =>
-                RootNavigation.navigate('Index')
-            }>
-            <FontAwesome5 name={'book-open'} solid style={styles.icons}/>
+          RootNavigation.navigate('Index')
+        }>
+          <FontAwesome5 name={'book-open'} solid style={styles.icons} />
         </Button>
 
         <Button style={styles.buttons}>
-          <FontAwesome5 name={'paper-plane'} solid style={styles.icons}/>
+          <FontAwesome5 name={'paper-plane'} solid style={styles.icons} />
         </Button>
 
         <Button style={styles.buttons}>
-          <FontAwesome5 name={'sync-alt'} solid style={styles.icons}/>   
+          <FontAwesome5 name={'sync-alt'} solid style={styles.icons} />
         </Button>
 
-      </View> 
+      </View>
     )
   }
 }
 
 const styles = StyleSheet.create({
-    footerStyle: {
-      position: 'absolute',
-      flex:0.1,
-      left: 0,
-      right: 0,
-      bottom: -10,
-      backgroundColor:'#f9d392',
-      flexDirection:'row',
-      height: 90,
-      alignItems:'center',
-      justifyContent: 'space-between',
-    },
-    icons: {
-      color: '#282828',
-      fontSize: 25,
-      
-    },
-    buttons: {
-      marginHorizontal: 15,
-      marginBottom: 15,
-    },
-  });
+  footerStyle: {
+    position: 'absolute',
+    display: 'flex',
+    left: 0,
+    right: 0,
+    bottom: -10,
+    backgroundColor: '#f9d392',
+    flexDirection: 'row',
+    height: 70,
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  icons: {
+    color: '#282828',
+    fontSize: 25,
+
+  },
+  buttons: {
+    marginBottom: 15,
+  },
+});

@@ -86,7 +86,7 @@ class App extends React.Component {
               <Stack.Screen name="Checkout" component={Checkout}></Stack.Screen>
               <Stack.Screen name="Scan" component={Scan}></Stack.Screen>
             </Stack.Navigator>
-            <Dummy />
+            {/* <Dummy /> */}
             <Footer />
 
           </NavigationContainer>
