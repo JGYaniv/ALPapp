@@ -7,16 +7,16 @@ import {
   TouchableOpacity,
   Button,
 } from "react-native";
-import { styles } from '../config/stylesheets/IndexStyle'
-import { GlobalContext } from './GlobalContext'
+import { styles } from '../../config/stylesheets/IndexStyle'
 
 export default function IndexItem(props){
-    const cont = useContext(GlobalContext)
 
     const handleShowBook = (event => {
 
-            props.navigation.navigate("Show")
-            cont.showBook(props.book)
+            props.navigation.navigate("Show", {
+                book: props.book
+            });
+
         });
 
     return(

@@ -2,8 +2,8 @@ import React, { useContext } from 'react';
 import { Image, StyleSheet, View, TouchableOpacity } from 'react-native';
 import { BottomNavigation, Text, Button } from 'react-native-paper';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import * as RootNavigation from '../RootNavigation';
-import { GlobalContext } from './GlobalContext'
+import * as RootNavigation from '../../RootNavigation';
+import { GlobalContext } from '../GlobalContext'
 
 export default () => {
 
@@ -15,14 +15,7 @@ export default () => {
   } else {
     return (
       <View style={styles.footerStyle}>
-        <Button
-          style={styles.buttons}
-          onPress={() =>
-            RootNavigation.navigate('Scan')
-          }
-        >
-          <FontAwesome5 name={'barcode'} solid style={styles.icons} />
-        </Button>
+
 
         <Button style={styles.buttons} onPress={() =>
           RootNavigation.navigate('Index')
@@ -30,9 +23,18 @@ export default () => {
           <FontAwesome5 name={'book-open'} solid style={styles.icons} />
         </Button>
 
-        <Button style={styles.buttons}>
+        <Button
+          style={styles.buttons}
+          onPress={() =>
+            RootNavigation.navigate('Main')
+          }
+        >
+          <FontAwesome5 name={'plus'} solid style={styles.icons} />
+        </Button>        
+
+        {/* <Button style={styles.buttons}>
           <FontAwesome5 name={'paper-plane'} solid style={styles.icons} />
-        </Button>
+        </Button> */}
 
         <Button style={styles.buttons}>
           <FontAwesome5 name={'sync-alt'} solid style={styles.icons} />
@@ -55,6 +57,8 @@ const styles = StyleSheet.create({
     height: 70,
     alignItems: 'center',
     justifyContent: 'space-between',
+    paddingLeft: 15,
+    paddingRight: 15
   },
   icons: {
     color: '#282828',
