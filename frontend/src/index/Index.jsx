@@ -9,10 +9,10 @@ import {
 } from "react-native";
 import { Searchbar } from 'react-native-paper';
 import IndexItem from './IndexItem'
-import { styles } from '../config/stylesheets/IndexStyle'
+import { styles } from '../../config/stylesheets/IndexStyle'
 
-import { GlobalContext } from './GlobalContext'
-const dummyData = require('../data_sample.json');
+import { GlobalContext } from '../GlobalContext'
+const dummyData = require('../../data_sample.json');
 let booksArray = dummyData.res.books;
 
 export default ({ navigation }) => {

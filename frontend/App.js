@@ -7,11 +7,12 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { Provider as PaperProvider, BottomNavigation, Text } from 'react-native-paper';
 
 import Splash from './src/Splash'
-import Index from './src/Index'
+import Index from './src/index/Index'
 import Checkout from './src/Chekout'
 import Show from './src/Show'
 import Scan from './src/Scan'
-import Footer from './src/Footer'
+import Main from './src/Main'
+import Footer from './src/footerheader/Footer'
 import LogIn from './src/signIn/LogIn';
 import SignUp from './src/signIn/SignUp';
 import Dummy from './src/Dummy'
@@ -21,6 +22,42 @@ import { navigationRef } from './RootNavigation';
 
 import * as ImagePicker from 'expo-image-picker';
 import { StatusBar } from 'expo-status-bar';
+
+import {
+  ApolloClient,
+  InMemoryCache,
+  ApolloProvider,
+  useQuery,
+  gql
+} from '@apollo/client';
+
+const dummyData = require('./data_sample.json');
+
+const client = new ApolloClient({
+  // uri: 'http://localhost:4000/graphql',
+  // uri: 'http://localhost:19002',
+  cache: new InMemoryCache({
+      TypePolicy: {
+        User: {
+          keyFields: ["id", "first_name", "last_name"],
+        },
+        Library: {
+          keyFields: ["id", "name", "address"],
+        },
+        Checkout: {
+          keyFields: ["id", "copy_id", "user_id", "checkout_time", "return_time"],
+        },
+        Copy: {
+          keyFields: ["library_id", "id", "book_id", "book_number"],
+        },
+        Book: {
+          keyFields: ["title", "author", "isbn", "genre", "id"],
+        },
+      },
+    }
+  ),
+});
+// https://www.apollographql.com/docs/react/caching/cache-configuration/ --- to follow
 
 
 const Stack = createStackNavigator();
@@ -52,18 +89,11 @@ class App extends React.Component {
       }));
     };
 
-    this.showBook = (book) => {
-      this.setState({
-        bookToShow: book
-      });
-    };
 
     this.state = {
       isLoggedIn: false,
       thing: "is working",
       toggleLogin: this.toggleLogin,
-      bookToShow: {},
-      showBook: this.showBook,
       currentUser: null,
       loginUser: this.loginUser,
       logOut: this.logOut
@@ -72,8 +102,9 @@ class App extends React.Component {
 
   render() {
     return (
+      // <ApolloProvider client={client}>
 
-      <GlobalContext.Provider value={this.state}>
+      <GlobalContext.Provider value={this.state}> 
         <PaperProvider>
           <NavigationContainer ref={navigationRef}>
 
@@ -85,13 +116,15 @@ class App extends React.Component {
               <Stack.Screen name="Show" component={Show}></Stack.Screen>
               <Stack.Screen name="Checkout" component={Checkout}></Stack.Screen>
               <Stack.Screen name="Scan" component={Scan}></Stack.Screen>
+              <Stack.Screen name="Main" component={Main}></Stack.Screen>
             </Stack.Navigator>
             {/* <Dummy /> */}
             <Footer />
 
           </NavigationContainer>
         </PaperProvider>
-      </GlobalContext.Provider>
+     </GlobalContext.Provider> 
+      // </ApolloProvider>
     );
   }
 }

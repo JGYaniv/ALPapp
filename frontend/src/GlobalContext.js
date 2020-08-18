@@ -3,8 +3,6 @@ export const defaultState = {
     isLoggedIn: false,
     thing: "is working",
     toggleLogin: () => {},
-    bookToShow: {},
-    showBook: () => {},
     currentUser: null,
     loginUser: () => {},
     logOut: () => {}
