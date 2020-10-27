@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import '../pages/show.dart';
 
 class GetBooks extends StatelessWidget {
   @override
@@ -22,6 +23,18 @@ class GetBooks extends StatelessWidget {
           children: snapshot.data.docs.map((DocumentSnapshot document) {
             return new ListTile(
               title: new Text(document.data()['title']),
+              // Within the `FirstScreen` widget
+              onTap: () {
+                // Navigate to the show page using a named route.
+                Navigator.pushNamed(
+                  context, 
+                  '/show',
+                  // arguments: new Text(document.data()['title']),
+                  arguments: ScreenArguments(
+                    document.data()['title'],
+                  ),
+                );
+              }
             );
           }).toList(),
         );
