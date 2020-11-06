@@ -1,4 +1,4 @@
-// used this tutorial 
+// used this tutorial
 // https://medium.com/firebase-tips-tricks/how-to-use-firebase-authentication-in-flutter-50e8b81cb29f
 
 import 'package:flutter/material.dart';
@@ -7,7 +7,7 @@ import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'email_login.dart';
 import 'email_signup.dart';
 
-class SignUp extends StatelessWidget {
+class SignUpPage extends StatelessWidget {
   final String title = "Sign Up";
   @override
   Widget build(BuildContext context) {
@@ -18,7 +18,7 @@ class SignUp extends StatelessWidget {
         body: Center(
           child: Column(mainAxisAlignment: MainAxisAlignment.center, children: <
               Widget>[
-            Padding(
+            Padding(  
               padding: EdgeInsets.all(10.0),
               child: Text("AlpAPP",
                   style: TextStyle(
