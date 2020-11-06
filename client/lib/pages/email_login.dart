@@ -1,7 +1,7 @@
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:ALPapp/pages/auth_page.dart';
+import 'package:ALPapp/services/auth_service.dart';
 import 'package:flutter/material.dart';
-
-import 'index.dart';
+import 'package:provider/provider.dart';
 
 class EmailLogIn extends StatefulWidget {
   @override
@@ -17,6 +17,7 @@ class _EmailLogInState extends State<EmailLogIn> {
 
   @override
   Widget build(BuildContext context) {
+    var authService = Provider.of<AuthService>(context);
     return Scaffold(
         appBar: AppBar(title: Text("Login")),
         body: Form(
@@ -68,52 +69,20 @@ class _EmailLogInState extends State<EmailLogIn> {
               ),
               Padding(
                 padding: EdgeInsets.all(20.0),
-                child: isLoading
-                    ? CircularProgressIndicator()
-                    : RaisedButton(
-                        color: Colors.lightBlue,
-                        onPressed: () {
-                          if (_formKey.currentState.validate()) {
-                            setState(() {
-                              isLoading = true;
-                            });
-                            logInToFb();
-                          }
-                        },
-                        child: Text('Submit'),
-                      ),
+                child: RaisedButton(
+                  color: Colors.lightBlue,
+                  onPressed: () {
+                    authService.signInWithMail(
+                        email: emailController.text,
+                        password: passwordController.text);
+
+                    Navigator.of(context).pushAndRemoveUntil(
+                        MaterialPageRoute(builder: (context) => AuthPage()),
+                        (route) => false);
+                  },
+                  child: Text('Submit'),
+                ),
               )
             ]))));
-  }
-
-  void logInToFb() {
-    FirebaseAuth.instance
-        .signInWithEmailAndPassword(
-            email: emailController.text, password: passwordController.text)
-        .then((result) {
-      isLoading = false;
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => IndexPage(uid: result.user.uid)),
-      );
-    }).catchError((err) {
-      print(err.message);
-      showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              title: Text("Error"),
-              content: Text(err.message),
-              actions: [
-                FlatButton(
-                  child: Text("Ok"),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                )
-              ],
-            );
-          });
-    });
   }
 }

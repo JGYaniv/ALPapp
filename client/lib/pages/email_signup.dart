@@ -1,6 +1,8 @@
+import 'package:ALPapp/services/auth_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'index.dart';
 
@@ -22,6 +24,7 @@ class _EmailSignUpState extends State<EmailSignUp> {
 
   @override
   Widget build(BuildContext context) {
+    var authService = Provider.of<AuthService>(context);
     return Scaffold(
         appBar: AppBar(title: Text("Sign Up")),
         body: Form(
@@ -92,58 +95,24 @@ class _EmailSignUpState extends State<EmailSignUp> {
               ),
               Padding(
                 padding: EdgeInsets.all(20.0),
-                child: isLoading
-                    ? CircularProgressIndicator()
-                    : RaisedButton(
-                        color: Colors.lightBlue,
-                        onPressed: () {
-                          if (_formKey.currentState.validate()) {
-                            setState(() {
-                              isLoading = true;
-                            });
-                            registerToFb();
-                          }
-                        },
-                        child: Text('Submit'),
-                      ),
+                child: RaisedButton(
+                  color: Colors.lightBlue,
+                  onPressed: () {
+                    //TODO Add try catch implementation
+                    authService.signUpWithMail(
+                        email: emailController.text,
+                        password: passwordController.text,
+                        userName: nameController.text);
+                    Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(
+                      builder: (context) {
+                        return IndexPage();
+                      },
+                    ), (route) => false);
+                  },
+                  child: Text('Submit'),
+                ),
               )
             ]))));
-  }
-
-  void registerToFb() {
-    firebaseAuth
-        .createUserWithEmailAndPassword(
-            email: emailController.text, password: passwordController.text)
-        .then((result) {
-      dbRef.child(result.user.uid).set({
-        "email": emailController.text,
-        // "age": ageController.text,
-        "name": nameController.text
-      }).then((res) {
-        isLoading = false;
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => IndexPage(uid: result.user.uid)),
-        );
-      });
-    }).catchError((err) {
-      showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              title: Text("Error"),
-              content: Text(err.message),
-              actions: [
-                FlatButton(
-                  child: Text("Ok"),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                )
-              ],
-            );
-          });
-    });
   }
 
   @override

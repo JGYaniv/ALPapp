@@ -1,3 +1,4 @@
+import 'package:ALPapp/services/auth_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -22,25 +23,22 @@ void main() async {
 }
 
 class App extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        Provider(create: (context){}),
+        ChangeNotifierProvider<AuthService>(
+          create: (_) => AuthService(),
+        )
       ],
       child: MaterialApp(
-        title: 'ALPapp',
-        theme: StandardThemeData.themeData(),
-        home: IntroScreen(),
-        // home: IndexPage(),
-        routes: {
-          '/show': (context) => ShowPage(),
-        }
-      ),
+          title: 'ALPapp',
+          theme: StandardThemeData.themeData(),
+          home: IntroScreen(),
+          // home: IndexPage(),
+          routes: {
+            '/show': (context) => ShowPage(),
+          }),
     );
   }
 }
-
-
-
