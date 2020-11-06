@@ -8,7 +8,7 @@ class IntroScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return new SplashScreen(
         navigateAfterSeconds: AuthPage(),
-        seconds: 5,
+        seconds: 1,
         title: new Text(
           'Welcome To AlpAPP!',
           style: new TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
