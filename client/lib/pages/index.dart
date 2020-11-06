@@ -4,12 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 
 import 'package:ALPapp/utils/get_books.dart';
 import 'package:ALPapp/pages/add_book_form.dart';
-
-import 'dart:async';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
-
-import 'introscreen.dart';
 
 class IndexPage extends StatefulWidget {
   // for auth start
@@ -27,12 +22,12 @@ class IndexPage extends StatefulWidget {
 class _IndexPageState extends State<IndexPage> {
   int _counter = 0;
 
-  //REmoved unecessary Firebase Init
-
+  //Removed unecessary Firebase Init
   @override
   Widget build(BuildContext context) {
     // Show error message if initialization failed
     AuthService authService = Provider.of<AuthService>(context);
+
     return Scaffold(
       appBar: AppBar(title: Text('You have $_counter books'), actions: <Widget>[
         IconButton(
