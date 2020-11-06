@@ -1,3 +1,4 @@
+import 'package:ALPapp/main.dart';
 import 'package:ALPapp/pages/auth_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -43,6 +44,7 @@ class AuthService with ChangeNotifier {
   signUpWithMail({String email, String password, String userName}) {
     _auth.createUserWithEmailAndPassword(email: email, password: password);
     notifyListeners();
+    print(_user);
     //TODO Implement librarian preferences model: Name, Library
   }
 
@@ -53,7 +55,7 @@ class AuthService with ChangeNotifier {
 
     Navigator.of(context).pushAndRemoveUntil(
         MaterialPageRoute(
-          builder: (context) => AuthPage(),
+          builder: (context) => App(),
         ),
         (route) => false);
 
