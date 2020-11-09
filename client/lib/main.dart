@@ -1,4 +1,5 @@
 import 'package:ALPapp/services/auth_service.dart';
+import 'package:ALPapp/services/book_service.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 import 'package:flutter/material.dart';
@@ -27,6 +28,9 @@ class App extends StatelessWidget {
       providers: [
         ChangeNotifierProvider<AuthService>(
           create: (_) => AuthService(),
+        ),
+        Provider<BookService>(
+          create: (_) => BookService(),
         )
       ],
       child: MaterialApp(

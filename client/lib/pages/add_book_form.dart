@@ -1,9 +1,11 @@
+import 'package:ALPapp/models/book.dart';
+import 'package:ALPapp/services/book_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 
-import 'package:ALPapp/utils/add_book.dart';
+import 'package:provider/provider.dart';
 
 class AddBookForm extends StatefulWidget {
   AddBookForm({Key key}) : super(key: key);
@@ -25,6 +27,7 @@ class _AddBookFormState extends State<AddBookForm> {
 
   @override
   Widget build(BuildContext context) {
+    BookService bookService = Provider.of<BookService>(context);
     return Form(
       key: _formKey,
       child: Column(
@@ -43,21 +46,24 @@ class _AddBookFormState extends State<AddBookForm> {
             },
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 16.0),
-            child: Column(
-              children: [
+              padding: const EdgeInsets.symmetric(vertical: 16.0),
+              child: Column(children: [
                 ScanButton(bookFormController),
-                AddBook(bookFormController)
-              ]
-            )
-          ),
+                FlatButton(
+                  onPressed: () =>
+                      bookService.addBook(Book(title: bookFormController.text)),
+                  child: Text(
+                    "Add Book",
+                  ),
+                ),
+              ])),
         ],
       ),
     );
   }
 }
 
-class ScanButton extends StatelessWidget{
+class ScanButton extends StatelessWidget {
   final TextEditingController _textController;
 
   ScanButton(this._textController);
@@ -67,8 +73,7 @@ class ScanButton extends StatelessWidget{
 
     try {
       barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
-        "#ff6666", "Cancel", true, ScanMode.BARCODE
-      );
+          "#ff6666", "Cancel", true, ScanMode.BARCODE);
     } on PlatformException {
       barcodeScanRes = 'Failed to get platform version.';
     }
@@ -76,8 +81,9 @@ class ScanButton extends StatelessWidget{
     // set the text form controller to the result of our scan
     _textController.value = _textController.value.copyWith(
       text: barcodeScanRes,
-      selection:
-          TextSelection(baseOffset: barcodeScanRes.length, extentOffset: barcodeScanRes.length),
+      selection: TextSelection(
+          baseOffset: barcodeScanRes.length,
+          extentOffset: barcodeScanRes.length),
       composing: TextRange.empty,
     );
   }
@@ -85,8 +91,6 @@ class ScanButton extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return RaisedButton(
-      onPressed: () => scanQR(),
-      child: Text("Start barcode scan")
-    );
+        onPressed: () => scanQR(), child: Text("Start barcode scan"));
   }
 }
