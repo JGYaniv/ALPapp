@@ -3,9 +3,7 @@ import 'package:ALPapp/services/auth_service.dart';
 import 'package:ALPapp/services/book_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
 
-import 'package:ALPapp/utils/get_books.dart';
 import 'package:ALPapp/pages/add_book_form.dart';
 import 'package:provider/provider.dart';
 
