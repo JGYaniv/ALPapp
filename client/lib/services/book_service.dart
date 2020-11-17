@@ -1,6 +1,7 @@
 import 'package:ALPapp/models/book.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+// firestore service
 class BookService {
   FirebaseFirestore _db;
   CollectionReference _booksRef;
