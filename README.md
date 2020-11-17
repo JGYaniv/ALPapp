@@ -7,8 +7,6 @@
 - [Introduction](#introduction)
 - [Technologies](#technologies)
 - [Setup](#setup)
-- [Frontend](#frontend)
-- [Backend](#backend)
 
 ## Introduction
 
@@ -16,26 +14,15 @@ The African Library Project App (ALPapp) is a lightweight mobile library managem
 
 ## Technologies
 
-### Client
-
 - [Flutter](https://flutter.dev/)
 - [sqflite](https://pub.dev/packages/sqflite)
 - [provider](https://pub.dev/packages/provider)
 - [graphql_flutter](https://pub.dev/packages/graphql_flutter)
-
-### Backend
-
-- [Node.js](https://nodejs.org/en/)
-- [graphql-yoga](https://github.com/prisma-labs/graphql-yoga)
-- [Sequelize](https://sequelize.org/)
-- [PostgreSQL](https://www.postgresql.org/)
-- Considering a switch to Firebase vs Azure for a serverless architecture
+- [alpappapi](https://github.com/JGYaniv/alpappapi) (our api)
 
 ## Setup
 
 To run this project, clone it to your local machine and then run:
-
-### Client
 
 From project root directory run `cd client` and then run:
 
@@ -51,25 +38,9 @@ npm start
 
 This will run setup for both android and ios versions of the application. You can also run `npm run android/ios` to run setup only for android or ios.
 
-### Backend
-
-From project root directory run `cd server` and then run:
-
-```
-npm install
-```
-
-Tt will install all the front end dependencies. Now run:
-
-```
-npm run server
-```
-
-This will run the node server and you can navigate to http://localhost:4000/ to view the graphql playground by graphql-yoga.
-
 ## Documentation for pilot model
 
-### Authentification
+### Authentication
 
 - For demo model we assume that the user signs in with email, password and choses a library from a dropdown menu.
 - User should log in only once

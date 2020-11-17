@@ -33,8 +33,10 @@ dependencies:
   google_api_availability: ^2.0.4
   provider: ^4.3.2+2
   splashscreen: 1.2.0
+  graphql_flutter: ^3.0.0
 
 dev_dependencies:
+  test: ^1.15.4
   flutter_test:
     sdk: flutter
 

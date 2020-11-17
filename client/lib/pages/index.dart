@@ -68,8 +68,27 @@ class _IndexPageState extends State<IndexPage> {
                         ),
                       );
                     });
-              }).toList(),
+              }).toList()
             );
+
+            // return new ListView(
+            //   children: snapshot.data.docs.map((DocumentSnapshot document) {
+            //     return new ListTile(
+            //         title: new Text(document.data()['title']),
+            //         // Within the `FirstScreen` widget
+            //         onTap: () {
+            //           // Navigate to the show page using a named route.
+            //           Navigator.pushNamed(
+            //             context,
+            //             '/show',
+            //             // arguments: new Text(document.data()['title']),
+            //             arguments: ScreenArguments(
+            //               document.data()['title'],
+            //             ),
+            //           );
+            //         });
+            //   }).toList()
+            // );
           },
         ));
   }
