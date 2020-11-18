@@ -8,6 +8,7 @@ import 'package:ALPapp/services/book_service.dart'; //data layer for book model
 import 'package:ALPapp/theme/standard_theme.dart';
 import 'package:ALPapp/pages/show.dart';
 import 'package:ALPapp/pages/introscreen.dart';
+import 'package:ALPapp/pages/add_find_reader.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -31,9 +32,11 @@ class App extends StatelessWidget {
           title: 'ALPapp',
           theme: StandardThemeData.themeData(),
           home: IntroScreen(),
+          // home: AddFindReader(),
           // home: IndexPage(),
           routes: {
             '/show': (context) => ShowPage(),
+            '/readers': (context) => AddFindReader(),
           }),
     );
   }
