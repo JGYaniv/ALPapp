@@ -92,6 +92,7 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.15.0-nullsafety.3"
+<<<<<<< HEAD
   connectivity:
     dependency: transitive
     description:
@@ -141,6 +142,15 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.5"
+=======
+  dropdown_formfield:
+    dependency: "direct main"
+    description:
+      name: dropdown_formfield
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.3"
+>>>>>>> 98f44e7 (add find reader wip)
   fake_async:
     dependency: transitive
     description:
