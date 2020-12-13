@@ -11,7 +11,6 @@ class ShowPage extends StatelessWidget {
     print(ModalRoute.of(context));
     return Scaffold(
       appBar: AppBar(
-        // title: Text("Second Screen"),
         title: Text(args.title),
       ),
       body: Center(

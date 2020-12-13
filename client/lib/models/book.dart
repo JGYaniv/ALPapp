@@ -21,3 +21,29 @@ class Book {
     //delete book from db and provider
   }
 }
+
+class BookQueryMutation {
+  String addBook(String isbn, String author, String title) {
+    return """
+      mutation{
+          addBook(isbn: "$isbn", author: "$author", title: $title){
+            isbn
+            author
+            title
+          }
+      }
+    """;
+  }
+
+  String getBooks(){
+    return """
+      {
+        allBooks{
+          isbn
+          title
+          author
+        }
+      }
+    """;
+  }
+}
