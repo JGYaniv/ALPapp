@@ -7,19 +7,20 @@ class GraphQLConfiguration {
     uri: "https://alpappapi.herokuapp.com/graphql",
   );
 
+  static GraphQLClient client;
+  static GraphQLConfiguration _instance;
 
-  ValueNotifier<GraphQLClient> client = ValueNotifier(
-    GraphQLClient(
-      link: httpLink,
-      cache: OptimisticCache(dataIdFromObject: typenameDataIdFromObject),
-    ),
-  );
+  static initialise() {
+    if (_instance == null) {
+      _instance = GraphQLConfiguration();
+    }
+  }
 
-
-  GraphQLClient clientToQuery() {
-    return GraphQLClient(
+  GraphQLClient getClient() {
+    client ??= GraphQLClient(
       cache: OptimisticCache(dataIdFromObject: typenameDataIdFromObject),
       link: httpLink,
     );
+    return client;
   }
 }

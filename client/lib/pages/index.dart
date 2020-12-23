@@ -5,6 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import 'package:ALPapp/pages/add_book_form.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:provider/provider.dart';
 
 class IndexPage extends StatefulWidget {
@@ -40,11 +41,12 @@ class _IndexPageState extends State<IndexPage> {
         ]),
         floatingActionButton: AddRecordButton(),
         drawer: IndexDrawer(authService: authService),
-        body: StreamBuilder(
-          stream: bookService.getBooks(),
+        body: FutureBuilder(
+          future: bookService.getAllBooks(),
           builder:
-              (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+              (BuildContext context, AsyncSnapshot<List> snapshot) {
             if (snapshot.hasError) {
+              debugPrint("err ${snapshot.error}");
               return Text("Something went wrong");
             }
 
@@ -53,23 +55,22 @@ class _IndexPageState extends State<IndexPage> {
             }
 
             return new ListView(
-              children: snapshot.data.docs.map((DocumentSnapshot document) {
-                return new ListTile(
-                    title: new Text(document.data()['title']),
-                    // Within the `FirstScreen` widget
-                    onTap: () {
-                      // Navigate to the show page using a named route.
-                      Navigator.pushNamed(
-                        context,
-                        '/show',
-                        // arguments: new Text(document.data()['title']),
-                        arguments: ScreenArguments(
-                          document.data()['title'],
-                        ),
-                      );
-                    });
-              }).toList()
-            );
+                children: snapshot.data.map((dynamic title) {
+              return new ListTile(
+                  title: new Text(title),
+                  // Within the `FirstScreen` widget
+                  onTap: () {
+                    // Navigate to the show page using a named route.
+                    Navigator.pushNamed(
+                      context,
+                      '/show',
+                      // arguments: new Text(document.data()['title']),
+                      arguments: ScreenArguments(
+                        title,
+                      ),
+                    );
+                  });
+            }).toList());
 
             // return new ListView(
             //   children: snapshot.data.docs.map((DocumentSnapshot document) {

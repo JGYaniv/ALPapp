@@ -51,7 +51,7 @@ class _AddBookFormState extends State<AddBookForm> {
                 ScanButton(bookFormController),
                 FlatButton(
                   onPressed: () =>
-                      bookService.addBook(Book(title: bookFormController.text)),
+                      bookService.addBook(Book(isbn: bookFormController.text)),
                   child: Text(
                     "Add Book",
                   ),

@@ -6,8 +6,7 @@
     "configurations": [
 
         {
-            "name": "Dart",
-            "program": "client/lib/main.dart",
+            "name": "alpapp",
             "request": "launch",
             "type": "dart"
         }
