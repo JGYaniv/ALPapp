@@ -1,6 +1,4 @@
 import 'package:ALPapp/services/auth_service.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -14,9 +12,6 @@ class EmailSignUp extends StatefulWidget {
 class _EmailSignUpState extends State<EmailSignUp> {
   bool isLoading = false;
   final _formKey = GlobalKey<FormState>();
-  FirebaseAuth firebaseAuth = FirebaseAuth.instance;
-  DatabaseReference dbRef =
-      FirebaseDatabase.instance.reference().child("Users");
   TextEditingController emailController = TextEditingController();
   TextEditingController nameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();

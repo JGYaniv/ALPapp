@@ -1,11 +1,9 @@
 import 'package:ALPapp/pages/show.dart';
 import 'package:ALPapp/services/auth_service.dart';
 import 'package:ALPapp/services/book_service.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import 'package:ALPapp/pages/add_book_form.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:provider/provider.dart';
 
 class IndexPage extends StatefulWidget {
