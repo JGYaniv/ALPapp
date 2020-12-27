@@ -1,14 +1,14 @@
 import 'package:ALPapp/models/book.dart';
-import 'package:ALPapp/graphql/graphql_config.dart';
-import 'package:ALPapp/graphql/book.dart' as api;
+import 'package:ALPapp/api/graphql_config.dart';
+import 'package:ALPapp/api/book.dart' as api;
 import 'package:graphql_flutter/graphql_flutter.dart';
+
 // firestore service
 class BookService {
   GraphQLClient _client = GraphQLConfiguration().getClient();
 
   Book addBook(Book book) {
     //Add new Book to the books collection
-    //TODO Security rules needed
     _client
         .mutate(
       MutationOptions(
@@ -26,8 +26,10 @@ class BookService {
         .query(QueryOptions(documentNode: gql(api.allBooks(title: true))))
         .then((result) {
       List _temp = result.data["allBooks"];
-      _list = _temp.map((e) => e["title"].toString()).toList()
-          ; //TODO Revisit [graphql_flutter] docs again
+
+      _list = _temp
+          .map((e) => e["title"].toString())
+          .toList(); //TODO Revisit [graphql_flutter] docs again
       return _list;
     }, onError: (result) {
       print(result.error);

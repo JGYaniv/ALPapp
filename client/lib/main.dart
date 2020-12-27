@@ -1,3 +1,4 @@
+import 'package:ALPapp/pages/core/auth_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -6,9 +7,8 @@ import 'package:ALPapp/services/auth_service.dart'; //data layer for authenticat
 import 'package:ALPapp/services/book_service.dart'; //data layer for book model
 
 import 'package:ALPapp/theme/standard_theme.dart';
-import 'package:ALPapp/pages/show.dart';
-import 'package:ALPapp/pages/introscreen.dart';
-import 'package:ALPapp/pages/add_find_reader.dart';
+import 'package:ALPapp/pages/util_pages/book_details_page.dart';
+import 'package:ALPapp/pages/home/add_find_reader.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -31,9 +31,7 @@ class App extends StatelessWidget {
       child: MaterialApp(
           title: 'ALPapp',
           theme: StandardThemeData.themeData(),
-          home: IntroScreen(),
-          // home: AddFindReader(),
-          // home: IndexPage(),
+          home: AuthPage(),
           routes: {
             '/show': (context) => ShowPage(),
             '/readers': (context) => AddFindReader(),

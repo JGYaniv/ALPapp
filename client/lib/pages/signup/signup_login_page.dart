@@ -4,7 +4,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 
-import 'email_login.dart';
+import '../login/email_login_page.dart';
 import 'email_signup.dart';
 
 class SignUpPage extends StatelessWidget {
