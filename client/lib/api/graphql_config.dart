@@ -1,26 +1,19 @@
-//https://github.com/zino-app/graphql-flutter/blob/master/examples/starwars/lib/client_provider.dart
-import "package:flutter/material.dart";
-import "package:graphql_flutter/graphql_flutter.dart";
+import 'dart:convert';
 
-class GraphQLConfiguration {
-  static HttpLink httpLink = HttpLink(
-    uri: "https://alpappapi.herokuapp.com/graphql",
-  );
+import 'package:http/http.dart' as http;
 
-  static GraphQLClient client;
-  static GraphQLConfiguration _instance;
+class Api {
+  final String url = "https://alpappapi.herokuapp.com/graphql";
 
-  static initialise() {
-    if (_instance == null) {
-      _instance = GraphQLConfiguration();
-    }
-  }
-
-  GraphQLClient getClient() {
-    client ??= GraphQLClient(
-      cache: OptimisticCache(dataIdFromObject: typenameDataIdFromObject),
-      link: httpLink,
+  getGQL({String body}) async {
+    var response = await http.post(
+      url,
+      body: body,
+      headers: {"Content-Type": "application/json"},
     );
-    return client;
+
+    Map<String, dynamic> _map = jsonDecode(response.body);
+
+    return _map["data"];
   }
 }

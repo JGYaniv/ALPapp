@@ -34,15 +34,16 @@ class _IndexPageState extends State<IndexPage> {
             AppBar(title: Text('You have $_counter books'), actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.sync),
-            onPressed: () {},
+            onPressed: () {
+              setState(() {});
+            },
           )
         ]),
         floatingActionButton: AddRecordButton(),
         drawer: IndexDrawer(authService: authService),
         body: FutureBuilder(
           future: bookService.getAllBooks(),
-          builder:
-              (BuildContext context, AsyncSnapshot<List> snapshot) {
+          builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
             if (snapshot.hasError) {
               debugPrint("err ${snapshot.error}");
               return Text("Something went wrong");
@@ -52,23 +53,25 @@ class _IndexPageState extends State<IndexPage> {
               return Text("loading...");
             }
 
-            return new ListView(
-                children: snapshot.data.map((dynamic title) {
-              return new ListTile(
-                  title: new Text(title),
-                  // Within the `FirstScreen` widget
-                  onTap: () {
-                    // Navigate to the show page using a named route.
-                    Navigator.pushNamed(
-                      context,
-                      '/show',
-                      // arguments: new Text(document.data()['title']),
-                      arguments: ScreenArguments(
-                        title,
-                      ),
-                    );
-                  });
-            }).toList());
+            if (snapshot.connectionState == ConnectionState.done) {
+              return new ListView(
+                  children: snapshot.data.map((dynamic title) {
+                return new ListTile(
+                    title: new Text(title),
+                    // Within the `FirstScreen` widget
+                    onTap: () {
+                      // Navigate to the show page using a named route.
+                      Navigator.pushNamed(
+                        context,
+                        '/show',
+                        // arguments: new Text(document.data()['title']),
+                        arguments: ScreenArguments(
+                          title,
+                        ),
+                      );
+                    });
+              }).toList());
+            }
 
             // return new ListView(
             //   children: snapshot.data.docs.map((DocumentSnapshot document) {

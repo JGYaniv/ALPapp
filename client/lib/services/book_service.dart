@@ -1,38 +1,30 @@
+import 'dart:convert';
+
 import 'package:ALPapp/models/book.dart';
 import 'package:ALPapp/api/graphql_config.dart';
-import 'package:ALPapp/api/book.dart' as api;
-import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:ALPapp/api/book.dart' as bookgql;
 
 // firestore service
 class BookService {
-  GraphQLClient _client = GraphQLConfiguration().getClient();
+  Api api = Api();
 
   Book addBook(Book book) {
     //Add new Book to the books collection
-    _client
-        .mutate(
-      MutationOptions(
-        documentNode: gql(api.addBook(book)),
-      ),
-    )
-        .then((QueryResult result) {
-      print(result);
-    });
+    print(bookgql.addBook(book));
+    api.getGQL(body: bookgql.addBook(book));
   }
 
-  Future<List<String>> getAllBooks() {
-    List<String> _list;
-    return _client
-        .query(QueryOptions(documentNode: gql(api.allBooks(title: true))))
-        .then((result) {
-      List _temp = result.data["allBooks"];
+  Future<List<String>> getAllBooks() async {
+    List<String> _list = [];
 
-      _list = _temp
-          .map((e) => e["title"].toString())
-          .toList(); //TODO Revisit [graphql_flutter] docs again
-      return _list;
-    }, onError: (result) {
-      print(result.error);
+    var _temp = await api.getGQL(body: bookgql.allBooks(title: true));
+
+    _temp["allBooks"].forEach((element) {
+      print(element["title"].toString());
+      _list.add(element["title"].toString());
     });
+
+    print(_list);
+    return _list;
   }
 }
