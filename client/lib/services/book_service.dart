@@ -1,55 +1,44 @@
 import 'package:ALPapp/models/book.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:ALPapp/graphql/graphql_config.dart';
-import 'package:ALPapp/graphql/book.dart' as api;
-import 'package:flutter/foundation.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
-import 'dart:convert';
+import 'package:ALPapp/api/graphql_config.dart';
+import 'package:ALPapp/api/book.dart' as bookgql;
+import 'package:ALPapp/services/db_service.dart';
+import 'package:sqflite/sqflite.dart';
 
 // firestore service
 class BookService {
-  FirebaseFirestore _db;
-  CollectionReference _booksRef;
-  GraphQLClient _client = GraphQLConfiguration().getClient();
-  BookService() {
-    _db = FirebaseFirestore.instance;
-    _booksRef = _db.collection('books');
+  Api api = Api();
+
+//Add new Book to the books collection
+  addBook(Book book) {
+    api.getGQL(body: bookgql.addBook(book));
   }
 
-  Book addBook(Book book) {
-    //Add new Book to the books collection
+//Get all books
+  Future<List<String>> getAllBooks() async {
+    List<String> _list = [];
+    Database db = await DBService.getInstance().db;
 
-    Book _resultBook;
-    //TODO Security rules needed
-    _booksRef
-        .add({
-          'title': book.title,
-        })
-        .then((value) => print("${book.title} Added"))
-        .catchError((error) => print("Failed to add book: $error"));
+    var _temp = await api.getGQL(
+        body: bookgql.allBooks(isbn: true, title: true, author: true));
 
-    _client
-        .mutate(
-      MutationOptions(
-        documentNode: gql(api.addBook(book)),
-      ),
-    )
-        .then((QueryResult result) {
-      print(result);
-    });
-  }
+    _temp["allBooks"].forEach(
+      (element) {
+        _list.add(element["title"].toString());
 
-  Future<List<String>> getAllBooks() {
-    List<String> _list;
-    return _client
-        .query(QueryOptions(documentNode: gql(api.allBooks(title: true))))
-        .then((result) {
-      List _temp = result.data["allBooks"];
-      _list = _temp.map((e) => e["title"].toString()).toList()
-          ; //TODO Revisit [graphql_flutter] docs again
-      return _list;
-    }, onError: (result) {
-      print(result.error);
-    });
+        if (element["title"] != null &&
+            element["isbn"] != null &&
+            element["author"] != null) {
+          db.insert(
+            "fts",
+            {
+              "isbn": element["isbn"],
+              "title": element["title"],
+              "author": element["author"],
+            },
+          );
+        }
+      },
+    );
+    return _list;
   }
 }

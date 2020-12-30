@@ -3,7 +3,7 @@ description: A new Flutter project.
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `pub publish`. This is preferred for private packages.
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -23,29 +23,24 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  cloud_firestore: ^0.14.1+3
-  firebase_analytics: ^5.0.2
+  dropdown_formfield: ^0.1.3
   firebase_auth: ^0.18.1+2
   firebase_core: 0.5.0+1
-  firebase_database: ^4.1.1
   flutter_barcode_scanner: ^1.0.1
   flutter_signin_button: ^1.0.0
-  google_api_availability: ^2.0.4
   provider: ^4.3.2+2
   splashscreen: 1.2.0
-  graphql_flutter: ^3.0.0
-  dropdown_formfield: ^0.1.3
+  sqflite: ^1.3.2+1
 
 dev_dependencies:
-  test: ^1.15.4
   flutter_test:
     sdk: flutter
+  test: ^1.15.4
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 # The following section is specific to Flutter.
 flutter:
-
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.

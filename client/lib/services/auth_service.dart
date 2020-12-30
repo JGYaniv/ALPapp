@@ -1,14 +1,15 @@
 import 'package:ALPapp/main.dart';
-import 'package:ALPapp/pages/auth_page.dart';
+import 'package:ALPapp/services/db_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:sqflite/sqflite.dart';
 
 class AuthService with ChangeNotifier {
   //For ChangeNotifierProvider
   FirebaseAuth _auth = FirebaseAuth.instance;
   User _user;
   String _loginType = "email";
+  Database _db = DBService.getInstance().db;
 
 //getters
   bool get isAuthenticated => _user != null;

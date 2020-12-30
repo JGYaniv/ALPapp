@@ -1,5 +1,5 @@
-import 'package:ALPapp/pages/index.dart';
-import 'package:ALPapp/pages/signup_page.dart';
+import 'package:ALPapp/pages/home/home_page.dart';
+import 'package:ALPapp/pages/signup/signup_login_page.dart';
 import 'package:ALPapp/services/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
