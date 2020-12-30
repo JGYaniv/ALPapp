@@ -7,6 +7,7 @@ class DBService {
   Database get db => _db;
 
   DBService._() {
+    Sqflite.devSetDebugModeOn(true); //The method is deprecated on purpose
     _createDB();
   }
 
@@ -32,42 +33,43 @@ class DBService {
   addData(Map<String, dynamic> json) {}
 
   _onCreateDB(Database database, int version) async {
+    print("VERSION: ${await database.getVersion()}");
+
     //Create DB
-    await database.execute("""CREATE TABLE books (
-        "isbn TEXT PRIMARY KEY",
+
+    await database.execute("CREATE TABLE books ("
+        "isbn TEXT PRIMARY KEY,"
         "title TEXT,"
-        "author TEXT,"
-        )""");
+        "author TEXT"
+        ")");
 
-    // Create FTS
-    await database.execute("""CREATE VIRTUAL TABLE fts USING fts4(
-                  "content = "books" ,"
-                  "isbn,"
-                  "title,"
-                  "author,"
-                  "notindexed = isbn") """);
+    // // Create FTS
+    //TODO FTS 
+    //   await database.execute("CREATE VIRTUAL TABLE fts using fts5("
+    //       "isbn)");
 
-    //Create Trigger
+    //   // await database.execute(
+    //   //   "CREATE VIRTUAL TABLE fts USING fts5("
+    //   //   "content = books,"
+    //   //   "content_rowid = isbn,"
+    //   //   "isbn UNINDEXED,"
+    //   //   "title,"
+    //   //   "author"
+    //   //   ")",
+    //   // );
 
-    await database
-        .execute("""CREATE TRIGGER books_bu BEFORE UPDATE ON books BEGIN
-                  DELETE FROM fts WHERE docid=old.rowid;
-                  END;
-              
-                  CREATE TRIGGER books_bd BEFORE DELETE ON books BEGIN
-                  DELETE FROM fts WHERE docid=old.rowid;
-                  END;
+    //   // //Create Trigger
 
-                  CREATE TRIGGER books_au AFTER UPDATE ON books BEGIN
-                  INSERT INTO fts(docid, title, author) 
-                  VALUES(new.rowid, new.title, new.author);
-                  END;
-
-                  CREATE TRIGGER books_ai AFTER INSERT ON books BEGIN
-                  INSERT INTO fts(docid, title, author)
-                  VALUES(new.rowid, new.title, new.author);
-                  END;
-
-                  """);
+    // //   await database.execute("CREATE TRIGGER books_ai AFTER INSERT ON books BEGIN"
+    // //       "INSERT INTO fts(rowid, title, author) VALUES (new.isbn, new.title, new.author);"
+    // //       "END;"
+    // //       "CREATE TRIGGER books_ad AFTER DELETE ON books BEGIN"
+    // //       "INSERT INTO fts(fts, rowid, title, author) VALUES('delete', old.isbn, old.title, old.author);"
+    // //       "END;"
+    // //       "CREATE TRIGGER books_au AFTER UPDATE ON books BEGIN"
+    // //       "INSERT INTO fts(fts, rowid, title, author) VALUES('delete', old.isbn, old.title, old.author);"
+    // //       "INSERT INTO fts(rowid, title, author) VALUES (new.isbn, new.title, new.author);"
+    // //       "END;");
+    // // }
   }
 }
