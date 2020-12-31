@@ -29,7 +29,7 @@ class BookService {
             element["isbn"] != null &&
             element["author"] != null) {
           db.insert(
-            "fts",
+            "books",
             {
               "isbn": element["isbn"],
               "title": element["title"],
