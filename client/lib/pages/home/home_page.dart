@@ -1,3 +1,4 @@
+import 'package:ALPapp/pages/core/searchbar.dart';
 import 'package:ALPapp/pages/util_pages/book_details_page.dart';
 import 'package:ALPapp/services/auth_service.dart';
 import 'package:ALPapp/services/book_service.dart';
@@ -32,6 +33,12 @@ class _IndexPageState extends State<IndexPage> {
     return Scaffold(
         appBar:
             AppBar(title: Text('You have $_counter books'), actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.search),
+            onPressed: () {
+              showSearch(context: context, delegate: Search());
+            },
+          ),
           IconButton(
             icon: const Icon(Icons.sync),
             onPressed: () {

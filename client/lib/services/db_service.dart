@@ -4,6 +4,9 @@ class DBService {
   static DBService instance;
   static Database _db;
 
+  bool _isRebuildingFTSIndex = true;
+
+  bool get isRebuildingFTSIndex => _isRebuildingFTSIndex;
   Database get db => _db;
 
   DBService._() {
@@ -36,40 +39,33 @@ class DBService {
     print("VERSION: ${await database.getVersion()}");
 
     //Create DB
-
-    await database.execute("CREATE TABLE books ("
+    await database.execute("CREATE TABLE books("
         "isbn TEXT PRIMARY KEY,"
         "title TEXT,"
         "author TEXT"
         ")");
 
-    // // Create FTS
-    //TODO FTS 
-    //   await database.execute("CREATE VIRTUAL TABLE fts using fts5("
-    //       "isbn)");
+    // Create FTS
+    await database.execute("CREATE VIRTUAL TABLE fts USING fts4("
+                                     "isbn,title,author)");
 
-    //   // await database.execute(
-    //   //   "CREATE VIRTUAL TABLE fts USING fts5("
-    //   //   "content = books,"
-    //   //   "content_rowid = isbn,"
-    //   //   "isbn UNINDEXED,"
-    //   //   "title,"
-    //   //   "author"
-    //   //   ")",
-    //   // );
+    //Build Index
+    await database.execute("INSERT INTO fts(fts) values('rebuild')").then(
+      (value) async {
+        _isRebuildingFTSIndex == false;
+             },
+    );
 
-    //   // //Create Trigger
-
-    // //   await database.execute("CREATE TRIGGER books_ai AFTER INSERT ON books BEGIN"
-    // //       "INSERT INTO fts(rowid, title, author) VALUES (new.isbn, new.title, new.author);"
-    // //       "END;"
-    // //       "CREATE TRIGGER books_ad AFTER DELETE ON books BEGIN"
-    // //       "INSERT INTO fts(fts, rowid, title, author) VALUES('delete', old.isbn, old.title, old.author);"
-    // //       "END;"
-    // //       "CREATE TRIGGER books_au AFTER UPDATE ON books BEGIN"
-    // //       "INSERT INTO fts(fts, rowid, title, author) VALUES('delete', old.isbn, old.title, old.author);"
-    // //       "INSERT INTO fts(rowid, title, author) VALUES (new.isbn, new.title, new.author);"
-    // //       "END;");
-    // // }
+    //Create Trigger
+    await database.execute("CREATE TRIGGER books_ai AFTER INSERT ON books BEGIN "
+        "INSERT INTO fts(isbn, title, author) VALUES (new.isbn, new.title, new.author); "
+        "END;"
+        "CREATE TRIGGER books_ad AFTER DELETE ON books BEGIN "
+        "INSERT INTO fts(fts, isbn, title, author) VALUES('delete', old.isbn, old.title, old.author); "
+        "END; "
+        "CREATE TRIGGER books_au AFTER UPDATE ON books BEGIN "
+        "INSERT INTO fts(fts, isbn, title, author) VALUES('delete', old.isbn, old.title, old.author); "
+        "INSERT INTO fts(isbn, title, author) VALUES (new.isbn, new.title, new.author); "
+        "END; ");
   }
 }

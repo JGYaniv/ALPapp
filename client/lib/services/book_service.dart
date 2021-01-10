@@ -28,8 +28,9 @@ class BookService {
         if (element["title"] != null &&
             element["isbn"] != null &&
             element["author"] != null) {
+          print(element);
           db.insert(
-            "fts",
+            "books",
             {
               "isbn": element["isbn"],
               "title": element["title"],
@@ -39,6 +40,12 @@ class BookService {
         }
       },
     );
+
+    var temp = await db.query("fts",
+        columns: ["title, author"],
+        where: "fts MATCH ?",
+        whereArgs: ["'t*'"]);
+    print("temp:$temp");
     return _list;
   }
 }
