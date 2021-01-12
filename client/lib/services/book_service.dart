@@ -1,16 +1,16 @@
 import 'package:ALPapp/models/book.dart';
-import 'package:ALPapp/api/graphql_config.dart';
-import 'package:ALPapp/api/book.dart' as bookgql;
-import 'package:ALPapp/services/db_service.dart';
+import 'package:ALPapp/services/api_services/_api_service.dart';
+import 'package:ALPapp/services/api_services/book_api.dart' as bookAPI;
+import 'package:ALPapp/services/_db_service.dart';
 import 'package:sqflite/sqflite.dart';
 
 // firestore service
 class BookService {
-  Api api = Api();
+  APIService api = APIService();
 
 //Add new Book to the books collection
   addBook(Book book) {
-    api.getGQL(body: bookgql.addBook(book));
+    api.call(commands: bookAPI.addBook(book));
   }
 
 //Get all books
@@ -18,8 +18,8 @@ class BookService {
     List<String> _list = [];
     Database db = await DBService.getInstance().db;
 
-    var _temp = await api.getGQL(
-        body: bookgql.allBooks(isbn: true, title: true, author: true));
+    var _temp = await api.call(
+        commands: bookAPI.allBooks(isbn: true, title: true, author: true));
 
     _temp["allBooks"].forEach(
       (element) {
@@ -42,9 +42,7 @@ class BookService {
     );
 
     var temp = await db.query("fts",
-        columns: ["title, author"],
-        where: "fts MATCH ?",
-        whereArgs: ["'t*'"]);
+        columns: ["title, author"], where: "fts MATCH ?", whereArgs: ["'t*'"]);
     print("temp:$temp");
     return _list;
   }
