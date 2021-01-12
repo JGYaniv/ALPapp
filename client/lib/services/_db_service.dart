@@ -10,7 +10,7 @@ class DBService {
   Database get db => _db;
 
   DBService._() {
-    Sqflite.devSetDebugModeOn(true); //The method is deprecated on purpose
+    Sqflite.devSetDebugModeOn(true); //The method is deprecated on purpose //TODO: remove during production
     _createDB();
   }
 
@@ -33,7 +33,9 @@ class DBService {
     return instance;
   }
 
-  addData(Map<String, dynamic> json) {}
+  addData(Map<String, dynamic> json) {
+    
+  }
 
   _onCreateDB(Database database, int version) async {
     print("VERSION: ${await database.getVersion()}");

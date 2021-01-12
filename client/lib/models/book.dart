@@ -1,23 +1,21 @@
 class Book {
-  String title, author, isbn;
+  //Follow order: isbn, title, isbn
+  String isbn, title, author;
 
-  Book({String title, author, isbn}){
-    this.title = title;
-    this.author = author;
-    this.isbn = isbn;
+  Book({this.isbn, this.title, this.author});
+
+  Book.fromJson(Map<String, dynamic> json) {
+    title = json["title"];
+    isbn = json["isbn"];
+    author = json["author"];
   }
 
-  //model validations
-
-  void save() async {
-    //save book to db and provider
-  }
-
-  void update() async {
-    //update book details in db and provider
-  }
-
-  void delete() async {
-    //delete book from db and provider
+  Map<String, dynamic> toJson() {
+    return <String, dynamic>{
+      "isbn": isbn,
+      "title": title,
+      "author": author,
+    }..removeWhere(
+        (dynamic key, dynamic value) => key == null || value == null);
   }
 }

@@ -2,7 +2,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 
-class APIService {
+class ApiService {
   static final String endPoint = "https://alpappapi.herokuapp.com/graphql";
 
   coldStart() {}

@@ -4,13 +4,14 @@ import 'package:ALPapp/services/api_services/book_api.dart' as bookAPI;
 import 'package:ALPapp/services/_db_service.dart';
 import 'package:sqflite/sqflite.dart';
 
-// firestore service
 class BookService {
-  APIService api = APIService();
+  ApiService api = ApiService();
+
 
 //Add new Book to the books collection
   addBook(Book book) {
-    api.call(commands: bookAPI.addBook(book));
+    api.call(commands: bookAPI.addBook(book)); // TODO: Offline first, log transactions
+
   }
 
 //Get all books
@@ -24,6 +25,8 @@ class BookService {
     _temp["allBooks"].forEach(
       (element) {
         _list.add(element["title"].toString());
+
+        //TODO: check existence of books before writing
 
         if (element["title"] != null &&
             element["isbn"] != null &&
@@ -40,10 +43,10 @@ class BookService {
         }
       },
     );
-
-    var temp = await db.query("fts",
-        columns: ["title, author"], where: "fts MATCH ?", whereArgs: ["'t*'"]);
-    print("temp:$temp");
     return _list;
+  }
+
+  getBook(String isbn){
+    
   }
 }

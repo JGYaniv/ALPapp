@@ -1,23 +1,22 @@
 class Reader {
-  String name, phone, address;
+  String name, mail, phone, address;
 
-  Reader({String name, phone, address}){
-    this.name = name;
-    this.phone = phone;
-    this.address = address;
+  Reader({this.name, this.mail, this.phone, this.address});
+
+  Map<String, dynamic> toJson() {
+    
+    return <String, dynamic>{
+      "name": name,
+      "mail": mail,
+      "phone": phone,
+      "address": address,
+    }..removeWhere((key, value) => key == null || value == null);
   }
 
-  //model validations
-
-  void save() async {
-    //save reader to db and provider
-  }
-
-  void update() async {
-    //update reader details and provider
-  }
-
-  void delete() async {
-    //delete reader and provider
+  Reader.fromJson(Map<String, dynamic> json) {
+    name = json["name"];
+    mail = json["mail"];
+    phone = json["phone"];
+    address = json["address"];
   }
 }
