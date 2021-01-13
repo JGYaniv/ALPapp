@@ -6,47 +6,51 @@ import 'package:sqflite/sqflite.dart';
 
 class BookService {
   ApiService api = ApiService();
-
+  Database db = DbService.instance.db;
 
 //Add new Book to the books collection
   addBook(Book book) {
-    api.call(commands: bookAPI.addBook(book)); // TODO: Offline first, log transactions
-
+    db.insert('books', book.toJson(),
+        conflictAlgorithm:
+            ConflictAlgorithm.abort); // TODO: Composite key for books table
+    api.call(
+        commands:
+            bookAPI.addBook(book)); // TODO: Offline first, log transactions
   }
 
 //Get all books
   Future<List<String>> getAllBooks() async {
     List<String> _list = [];
-    Database db = await DBService.getInstance().db;
 
-    var _temp = await api.call(
-        commands: bookAPI.allBooks(isbn: true, title: true, author: true));
+    //Call the grraphql endpoint
+    var response = await api.call(
+        commands: bookAPI.allBooks(
+      isbn: true,
+      title: true,
+      author: true,
+    ));
 
-    _temp["allBooks"].forEach(
+    response["allBooks"].forEach(
       (element) {
         _list.add(element["title"].toString());
 
-        //TODO: check existence of books before writing
+        //~TODO: check existence of books before writing
 
         if (element["title"] != null &&
             element["isbn"] != null &&
             element["author"] != null) {
-          print(element);
-          db.insert(
-            "books",
-            {
-              "isbn": element["isbn"],
-              "title": element["title"],
-              "author": element["author"],
-            },
-          );
+          db.insert("books", element,
+              conflictAlgorithm: ConflictAlgorithm.ignore);
         }
       },
     );
+
     return _list;
   }
 
-  getBook(String isbn){
-    
+  Future<Book> getBook(String isbn) async {
+    List<Map> _list =
+        await db.query('books', where: 'isbn=?', whereArgs: [isbn]);
+    return Book.fromJson(_list.first);
   }
 }

@@ -1,46 +1,54 @@
 import 'package:sqflite/sqflite.dart';
 
-class DBService {
-  static DBService instance;
+class DbService {
+  static DbService _instance;
   static Database _db;
+  static String _dbPath;
 
   bool _isRebuildingFTSIndex = true;
 
-  bool get isRebuildingFTSIndex => _isRebuildingFTSIndex;
-  Database get db => _db;
+  static DbService get instance => _instance ?? DbService._();
 
-  DBService._() {
-    Sqflite.devSetDebugModeOn(true); //The method is deprecated on purpose //TODO: remove during production
-    _createDB();
+  bool get isRebuildingFTSIndex => _isRebuildingFTSIndex;
+  Database get db => _db ?? DbService._().db;
+
+  DbService._() {
+    Sqflite.devSetDebugModeOn(
+        true); //The method is deprecated on purpose //TODO: remove during production
+    _createDb();
   }
 
-  _createDB() async {
-    String databasesPath = await getDatabasesPath();
-    String dbPath = databasesPath + '/db.alpapp';
+  static initialise() async {
+    _instance ??= DbService._();
+  }
 
+  Future<String> _getDbPath() async {
+    String databasesPath = await getDatabasesPath();
+    _dbPath = databasesPath + '/db.alpapp';
+    return _dbPath;
+  }
+
+  checkDbExists() async {}
+
+  checkTableExists(String tableName) async {
+    List list = await _db
+        .query('sqlite_master', where: 'name=?', whereArgs: [tableName]);
+
+    return list.isNotEmpty;
+  }
+
+  _createDb() async {
     _db = await openDatabase(
-      dbPath,
+      await _getDbPath(),
       version: 1,
-      onCreate: _onCreateDB,
+      onCreate: _onCreateDb,
     );
   }
 
-  static DBService getInstance() {
-    if (instance == null) {
-      instance = DBService._();
-    }
-
-    return instance;
-  }
-
-  addData(Map<String, dynamic> json) {
-    
-  }
-
-  _onCreateDB(Database database, int version) async {
+  _onCreateDb(Database database, int version) async {
     print("VERSION: ${await database.getVersion()}");
 
-    //Create DB
+    //Create table Books
     await database.execute("CREATE TABLE books("
         "isbn TEXT PRIMARY KEY,"
         "title TEXT,"
@@ -49,17 +57,16 @@ class DBService {
 
     // Create FTS
     await database.execute("CREATE VIRTUAL TABLE fts USING fts4("
-                                     "isbn,title,author)");
+        "isbn,title,author)");
 
     //Build Index
     await database.execute("INSERT INTO fts(fts) values('rebuild')").then(
-      (value) async {
-        _isRebuildingFTSIndex == false;
-             },
-    );
+          (value) => _isRebuildingFTSIndex == false,
+        );
 
-    //Create Trigger
-    await database.execute("CREATE TRIGGER books_ai AFTER INSERT ON books BEGIN "
+    //Create Triggers
+    await database.execute(
+        "CREATE TRIGGER books_ai AFTER INSERT ON books BEGIN "
         "INSERT INTO fts(isbn, title, author) VALUES (new.isbn, new.title, new.author); "
         "END;"
         "CREATE TRIGGER books_ad AFTER DELETE ON books BEGIN "

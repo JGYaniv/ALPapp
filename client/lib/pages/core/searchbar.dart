@@ -3,7 +3,7 @@ import 'package:ALPapp/services/_db_service.dart';
 import 'package:sqflite/sqflite.dart';
 
 class Search extends SearchDelegate {
-  Database _db = DBService.instance.db;
+  Database _db = DbService.instance.db;
 
   @override
   List<Widget> buildActions(BuildContext context) {

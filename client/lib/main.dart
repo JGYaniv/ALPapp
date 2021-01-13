@@ -1,4 +1,5 @@
 import 'package:ALPapp/pages/core/auth_page.dart';
+import 'package:ALPapp/services/_db_service.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -13,6 +14,7 @@ import 'package:ALPapp/pages/home/add_find_reader.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  await DbService.initialise();
   runApp(App());
 }
 
