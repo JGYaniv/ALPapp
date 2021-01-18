@@ -1,48 +1,53 @@
+import 'dart:io';
 import 'package:sqflite/sqflite.dart';
 
 class DbService {
   static DbService _instance;
   static Database _db;
-  static String _dbPath;
 
-  bool _isRebuildingFTSIndex = true;
-
+  //Getters
   static DbService get instance => _instance ?? DbService._();
-
-  bool get isRebuildingFTSIndex => _isRebuildingFTSIndex;
   Database get db => _db ?? DbService._().db;
 
   DbService._() {
-    Sqflite.devSetDebugModeOn(
-        true); //The method is deprecated on purpose //TODO: remove during production
-    _createDb();
+    // ignore: deprecated_member_use
+    Sqflite.devSetDebugModeOn(true);
+    _initDb();
   }
 
-  static initialise() async {
+  static initialize() async {
     _instance ??= DbService._();
+    return _instance;
+  }
+  _initDb() async {
+    String databasesDir = await getDatabasesPath();
+    String databasePath = databasesDir + '/db.alpapp';
+
+    dbExists(databasePath)? print("Db Exists"): print("Db doesn't exist");
+
+    _db = await openDatabase(
+      databasePath,
+      version: 1,
+      onCreate: _onCreateDb,
+      onOpen: _onOpenDb
+    );
   }
 
-  Future<String> _getDbPath() async {
-    String databasesPath = await getDatabasesPath();
-    _dbPath = databasesPath + '/db.alpapp';
-    return _dbPath;
+
+  dbExists(String path) {
+    return File(path).existsSync();
   }
 
-  checkDbExists() async {}
 
-  checkTableExists(String tableName) async {
+  tableExists(String tableName) async {
     List list = await _db
         .query('sqlite_master', where: 'name=?', whereArgs: [tableName]);
 
     return list.isNotEmpty;
   }
 
-  _createDb() async {
-    _db = await openDatabase(
-      await _getDbPath(),
-      version: 1,
-      onCreate: _onCreateDb,
-    );
+  _onOpenDb(Database database){
+    print("Database Opened");
   }
 
   _onCreateDb(Database database, int version) async {
@@ -60,9 +65,7 @@ class DbService {
         "isbn,title,author)");
 
     //Build Index
-    await database.execute("INSERT INTO fts(fts) values('rebuild')").then(
-          (value) => _isRebuildingFTSIndex == false,
-        );
+    await database.execute("INSERT INTO fts(fts) values('rebuild')");
 
     //Create Triggers
     await database.execute(

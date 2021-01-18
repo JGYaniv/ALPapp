@@ -14,7 +14,7 @@ import 'package:ALPapp/pages/home/add_find_reader.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  await DbService.initialise();
+  await DbService.initialize();
   runApp(App());
 }
 

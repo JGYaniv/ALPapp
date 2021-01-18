@@ -11,30 +11,30 @@ class BookService {
 //Add new Book to the books collection
   addBook(Book book) {
     db.insert('books', book.toJson(),
-        conflictAlgorithm:
-            ConflictAlgorithm.abort); // TODO: Composite key for books table
+        conflictAlgorithm: ConflictAlgorithm.abort);
+    // TODO: Composite key for books table
     api.call(
-        commands:
-            bookAPI.addBook(book)); // TODO: Offline first, log transactions
+      commands: bookAPI.addBook(book),
+    ); // TODO: Offline first, log transactions
   }
 
 //Get all books
   Future<List<String>> getAllBooks() async {
+    
     List<String> _list = [];
 
-    //Call the grraphql endpoint
+    //Call the graphql endpoint
     var response = await api.call(
-        commands: bookAPI.allBooks(
-      isbn: true,
-      title: true,
-      author: true,
-    ));
+      commands: bookAPI.allBooks(
+        isbn: true,
+        title: true,
+        author: true,
+      ),
+    );
 
     response["allBooks"].forEach(
       (element) {
         _list.add(element["title"].toString());
-
-        //~TODO: check existence of books before writing
 
         if (element["title"] != null &&
             element["isbn"] != null &&
