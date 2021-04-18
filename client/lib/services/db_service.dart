@@ -31,7 +31,6 @@ class DBService {
     String dir = await getDatabasesPath();
     String dbPath = dir + "/db.alpapp";
 
-    print(dbPath);
     _db = await openDatabase(dbPath, version: 1, onCreate: _onCreateDB);
   }
 
